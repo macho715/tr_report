@@ -3034,12 +3034,237 @@ html { scroll-padding-top: 72px; }
   opacity: 0.85;
 }
 </style>
+<style id="mobile-optimize-v1-20260403">
+/* ============================================================
+   MOBILE OPTIMIZATION v1 — 2026-04-03
+   P1: touch baseline · font minimums · touch targets
+   P2: safe area · route map · table scroll
+   ============================================================ */
+
+/* ── 1. Touch Interaction Baseline ── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a,
+[role="button"],
+.chapter-nav-link,
+.floating-actions button {
+  touch-action: manipulation;
+}
+
+/* ── 2. 폰트 최소 크기 보정 (모바일) ── */
+@media (max-width: 768px) {
+  .editorial-image-caption {
+    font-size: 12px !important;
+    line-height: 1.5;
+  }
+  .gngo-voyage {
+    font-size: 12px !important;
+  }
+  .gngo-date {
+    font-size: 12px !important;
+  }
+  .hero-attribution-team {
+    font-size: 10px !important;
+  }
+  .rmap-strip-label {
+    font-size: 10px !important;
+  }
+  .data-point-label {
+    font-size: 11px;
+  }
+  .card-body {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
+
+/* ── 3. Touch Target 44px 최소 보장 ── */
+.floating-actions button {
+  min-height: 44px !important;
+  min-width: 44px;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+@media (max-width: 768px) {
+  /* lightbox 버튼 42px → 44px */
+  .lightbox-btn {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  /* chapter nav 터치 영역 */
+  .chapter-nav-link {
+    min-height: 44px;
+    display: inline-flex !important;
+    align-items: center;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  /* 플로팅 버튼 */
+  .floating-actions button {
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+}
+
+/* ── 4. Safe Area Insets (iPhone notch / home indicator) ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  @media (max-width: 480px) {
+    body {
+      padding-bottom: max(84px, calc(60px + env(safe-area-inset-bottom)));
+    }
+    .floating-actions {
+      bottom: max(12px, calc(8px + env(safe-area-inset-bottom))) !important;
+    }
+  }
+}
+
+/* ── 5. Route Map SVG — 모바일 가로 스크롤 ── */
+@media (max-width: 600px) {
+  .rmap-svg-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 !important;
+  }
+  .rmap-svg-container > svg {
+    min-width: 520px;
+    height: auto;
+  }
+  /* 스크롤 힌트 */
+  .rmap-svg-container::after {
+    content: '← scroll →';
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(201,168,76,0.5);
+    padding: 6px 0 2px;
+    font-family: var(--font-mono);
+  }
+}
+
+/* ── 6. Table Scroll 개선 ── */
+.table-scroll-wrap {
+  overscroll-behavior-x: contain;
+  scroll-padding-left: 8px;
+}
+
+/* 첫 번째 열 sticky (RACI / evidence table) */
+@media (max-width: 768px) {
+  .raci-table td:first-child,
+  .raci-table th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--bg-card);
+    box-shadow: 2px 0 6px rgba(0,0,0,0.25);
+  }
+}
+
+/* ── 7. Evidence Table 모바일 폰트 ── */
+@media (max-width: 600px) {
+  .evidence-table td,
+  .evidence-table th {
+    font-size: 12px !important;
+    padding: 8px 6px !important;
+  }
+  .raci-table td,
+  .raci-table th {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}
+
+/* ── 8. Hero 모바일 하단 여백 ── */
+@media (max-width: 480px) {
+  #hero {
+    padding-bottom: clamp(80px, 12vh, 120px) !important;
+  }
+  .hero-subtitle {
+    font-size: clamp(13px, 3.5vw, 16px);
+    line-height: 1.6;
+  }
+}
+
+/* ── 9. 이미지 최적화 기본값 ── */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── 10. Voyage card 이미지 높이 모바일 ── */
+@media (max-width: 480px) {
+  .voyage-photo {
+    min-height: 180px !important;
+    max-height: 240px;
+  }
+}
+
+/* ── 11. Editorial 이미지 패널 모바일 비율 ── */
+@media (max-width: 900px) {
+  .editorial-image-panel {
+    min-height: 260px;
+    max-height: 340px;
+  }
+}
+
+/* ── 12. Key fact 모바일 폰트 ── */
+@media (max-width: 480px) {
+  .key-fact-num {
+    font-size: clamp(64px, 18vw, 96px) !important;
+  }
+}
+
+
+/* ── 13. 가로 스크롤 방지 (body level) ── */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ── 14. Editorial section 모바일 overflow 방지 ── */
+@media (max-width: 900px) {
+  .editorial-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    overflow-x: hidden;
+  }
+  .editorial-split {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .editorial-image-panel,
+  .editorial-content-panel {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .data-points {
+    max-width: 100%;
+  }
+}
+
+/* ── 15. 섹션 전반 max-width 100% 보장 ── */
+@media (max-width: 768px) {
+  .key-fact-section,
+  .gate-flow-section,
+  .evidence-strip-section,
+  .go-nogo-section,
+  .timeline-section,
+  .pull-quote-section,
+  .chapter-stats-section {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+</style>
 </head><body>
 <div id="progress-bar"></div>
 <nav id="chapter-nav" aria-label="Chapter Navigation">
   <div class="chapter-nav-inner">
     <a href="#hero" class="chapter-nav-logo-wrap" aria-label="Samsung C&amp;T">
-      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjM4LjM2NXB0IiB3aWR0aD0iNzQuMjA0cHQiIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCA3NC4yMDM2ODMgMzguMzY1MDg4Ij4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iYSI+CjxwYXRoIGQ9Im00MTkuMDkgNzMyLjI1aDYzLjkxdjIxLjE2NGgtNjMuOTF6Ii8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY3OS4wOSAtODM2LjI5KSI+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI2NS4xNiAxMDQuMDQpIiBjbGlwLXBhdGg9InVybCgjYSkiPgo8cGF0aCBzdHlsZT0iZmlsbDojMjM0N2EzIiBkPSJtNDgyLjgxIDczNy4yOGMtMC44NjcxOS00Ljk4MDUtMTUuODM2LTYuNTM1Mi0zMy40MzQtMy40NzI3LTcuMzg2NyAxLjI4NTItMTQuMDU5IDMuMTgzNi0xOS4yNTggNS4zMjAzIDAuNzk2ODggMC4wMTk1IDEuMzkwNiAwLjIwMzEyIDEuNzUzOSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjcxODcgMC40MTc5NyAxLjE1MjN2MC40OTIxOWgtMS43MjI3di0wLjQzNzVjMC0wLjM2MzI4LTAuMjE4NzUtMC41ODU5NC0wLjYwNTQ3LTAuNTg1OTQtMC4zMjQyMiAwLTAuNTIzNDMgMC4xNDQ1My0wLjU4OTg0IDAuNDMzNi0wLjAxNTYgMC4wODItMC4wMTk1IDAuMjE4NzUgMC4wMTE3IDAuMzQzNzUgMC4xODM1OSAwLjc1MzkgMi43NDIyIDEuMjIyNiAzLjAyMzQgMi42MTcyIDAuMDM5MSAwLjE3OTY5IDAuMDgyIDAuNTYyNSAwLjAwOCAxLjEwOTQtMC4xNjQwNiAxLjEyNS0xLjE0NDUgMS41NTg2LTIuNDAyNCAxLjU1ODYtMS43NTM5IDAtMi40Njg4LTAuODI4MTItMi40Njg4LTEuOTc2NnYtMC41MzkwNmgxLjg1MTZsMC4wMDQgMC42NzU3OGMwIDAuMzc1IDAuMjczNDQgMC41ODU5NCAwLjY0ODQ0IDAuNTg1OTQgMC4zNTU0NyAwIDAuNTY2NDEtMC4xNDA2MyAwLjYzNjcyLTAuNDM3NSAwLjAzMTItMC4xMzI4MiAwLjA0NjktMC4zMzIwMy0wLjAxNTYtMC40ODQzOC0wLjMzOTg0LTAuODU5MzctMi43MzA1LTEuMjU3OC0zLjAyNzMtMi42NDQ1LTAuMDY2NC0wLjMxNjQxLTAuMDcwMy0wLjU4MjAzLTAuMDE1Ni0wLjkxNzk3IDAuMDI3My0wLjE3OTY5IDAuMDgyLTAuMzM1OTQgMC4xNTIzNC0wLjQ4MDQ3LTUuNzY1NiAyLjY5NTMtOS4xMzY3IDUuNjYwMi04LjY5MTQgOC4yMjI3IDAuODcxMSA0Ljk4MDUgMTUuODM2IDYuNTM1MiAzMy40MzQgMy40NzY2IDcuNzM0NC0xLjM1MTYgMTQuNjg4LTMuMzY3MiAxOS45OC01LjYyNS0wLjA3ODEgMC4wMDQtMC4xNTIzNSAwLjAxMTctMC4yMzA0NyAwLjAxMTctMS4yMDMxIDAtMi4yODEyLTAuNDUzMTItMi4zOTA2LTEuNjgzNi0wLjAyMzQtMC4yMjI2Ni0wLjAyMzQtMC4zMjAzMi0wLjAyNzMtMC40NDUzMmwwLjAwNC0yLjgzMmMwLTAuMTE3MTggMC4wMTU2LTAuMzMyMDMgMC4wMjc0LTAuNDQxNCAwLjE0NDUzLTEuMTkxNCAxLjA4Mi0xLjY4MzYgMi4zODY3LTEuNjgzNiAxLjAwNzggMCAyLjI0MjIgMC4yODkwNyAyLjM4MjggMS42ODM2IDAuMDE1NiAwLjE3MTg3IDAuMDE1NiAwLjM2MzI4IDAuMDE1NiAwLjQyMTg3djAuMjY5NTNoLTEuNzQ2MXYtMC40MDIzNGMwLTAuMDA4LTAuMDA0LTAuMTU2MjUtMC4wMTk1LTAuMjUtMC4wMjczLTAuMTQwNjMtMC4xNDg0NC0wLjQ3MjY2LTAuNjQ4NDQtMC40NzI2Ni0wLjQ5MjE5IDAtMC42MTcxOSAwLjMzMjAzLTAuNjQ4NDQgMC40NzI2Ni0wLjAxNTYgMC4wNzgxLTAuMDIzNCAwLjE5MTQxLTAuMDIzNCAwLjMxMjV2My4wNzgxYzAgMC4xMDU0NyAwIDAuMTkxNDEgMC4wMTE3IDAuMjUzOTEgMC4wMDggMC4wNDMgMC4wOTc2IDAuNDcyNjYgMC42Njc5NiAwLjQ3MjY2IDAuNTcwMzIgMCAwLjY1NjI1LTAuNDI5NjkgMC42NjAxNi0wLjQ3MjY2IDAuMDE5NS0wLjA4NTkgMC4wMTk1LTAuMTgzNTkgMC4wMTk1LTAuMjUzOTF2LTAuOTUzMTJoLTAuNjg3NXYtMS4wMjM0aDIuNDI1OHYxLjgyMDNjMCAwLjEyNSAwIDAuMjE4NzUtMC4wMjM0IDAuNDQ1MzItMC4wMzEyIDAuMzI0MjItMC4xMzI4MiAwLjU5NzY1LTAuMjg5MDcgMC44MzIwMyA1LjYxMzMtMi42NjQxIDguODc4OS01LjU4NTkgOC40NDE0LTguMTA1NXptLTQ1LjYyOSA4LjgyODEtMC44ODI4MS02aC0wLjAyNzNsLTAuOTA2MjUgNmgtMS44NjMzbDEuMjUtNi43NzczaDMuMDM5MWwxLjI0MjIgNi43Nzczem04Ljk0OTIgMC0wLjAzOTEtNS44ODI4aC0wLjAyNzNsLTEuMDk3NyA1Ljg4MjhoLTEuNzVsLTEuMDg1OS01Ljg4MjhoLTAuMDMxMmwtMC4wMzkxIDUuODgyOGgtMS43MzA1bDAuMTUyMzQtNi43NzczaDIuNzgxMmwwLjgwODYgNS4wMzUyaDAuMDQzbDAuODA4NTktNS4wMzUyaDIuNzg1MmwwLjE0NDUzIDYuNzc3M3ptOC4xNDg0LTEuMzE2NGMtMC4xODc1IDEuMzE2NC0xLjQ3MjcgMS41NDMtMi4zNzg5IDEuNTQzLTEuNTA3OCAwLTIuNDQ1My0wLjY0NDUzLTIuNDQ1My0xLjk1N2wwLjAwNC0wLjUzNTE2aDEuODI4MXYwLjY2Nzk3YzAgMC4zNjMyOCAwLjI1NzgxIDAuNTgyMDMgMC42NTIzNSAwLjU4MjAzIDAuMzUxNTYgMCAwLjU1NDY4LTAuMTQwNjMgMC42MjUtMC40Mjk2OSAwLjAzNTEtMC4xMzI4MSAwLjA1MDgtMC4zMzIwMy0wLjAxMTctMC40ODA0Ny0wLjMzNTk0LTAuODQzNzUtMi43MTA5LTEuMjUzOS0yLjk5NjEtMi42MjExLTAuMDY2NC0wLjMxMjUtMC4wNzAzLTAuNTc0MjItMC4wMTU2LTAuOTA2MjUgMC4xOTkyMi0xLjIzODMgMS4zODY3LTEuNDk2MSAyLjM0MzgtMS40OTYxIDAuODU5MzcgMCAxLjQ4MDUgMC4xODc1IDEuODU1NSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjY0MDYgMC40MTc5NyAxLjEzNjd2MC40OTIxOWgtMS43MDd2LTAuNDMzNmMwLTAuMzY3MTktMC4yMzA0Ni0wLjU4MjAzLTAuNTk3NjUtMC41ODIwMy0wLjMyODEzIDAtMC41MjczNSAwLjE0NDUzLTAuNTg5ODUgMC40MzM1OS0wLjAxMTcgMC4wNTg2LTAuMDI3MyAwLjE5OTIyIDAuMDA4IDAuMzM1OTQgMC4xODc1IDAuNzUzOTEgMi43MjI2IDEuMjE0OCAzIDIuNTkzOCAwLjAzMTIgMC4xNzU3OCAwLjA4NTkgMC41NTQ2OSAwLjAwOCAxLjA5Nzd6bTYuMzI4MS0wLjYwOTM4YzAuMDA4IDAuMTI1LTAuMDA4IDAuMzc1LTAuMDE1NiAwLjQ0NTMyLTAuMTA1NDcgMS4xMTMzLTAuOTAyMzQgMS42Nzk3LTIuMzY3MiAxLjY3OTctMS40Njg4IDAtMi4yNjk1LTAuNTY2NC0yLjM3MTEtMS42Nzk3LTAuMDA0LTAuMDcwMy0wLjAxOTUtMC4zMjAzMi0wLjAxNTYtMC40NDUzMnYtNC44NTE2aDEuNzQ2MXY1LjAwMzljMCAwLjEwOTM3IDAuMDA0IDAuMTk1MzEgMC4wMTU2IDAuMjUgMC4wMjM0IDAuMTEzMjggMC4xMzI4MSAwLjQ3MjY1IDAuNjI1IDAuNDcyNjVzMC42MDU0Ny0wLjM1OTM3IDAuNjI4OTEtMC40NzI2NWMwLjAwOC0wLjA1NDcgMC4wMTE3LTAuMTQ0NTMgMC4wMTE3LTAuMjV2LTUuMDAzOWgxLjc0MjJ6bTcuNTMxMiAxLjg1NTVoLTIuNDI5N2wtMS42MzI4LTUuMzY3MmgtMC4wMjM0bDAuMDg1OSA1LjM2NzJoLTEuNjk1M3YtNi43MDdoMi41MzEybDEuNTE1NiA1LjE1NjJoMC4wMzUxbC0wLjA4OTgtNS4xNTYyaDEuNzAzMXY2LjcwNyIvPgo8L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04MS45MjQgMjMuMzA2KSI+CjxwYXRoIGQ9Im03NjMuNTMgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDA3OCAxLjQ4NDQgMC41OTM3NSAwIDAuODg2NzItMC4zODY3MiAwLjg4NjcyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTg2LTEuNjE3Mi0zLjU1ODYtNC4xMzI4IDAtMS4zMjAzIDAuNjMyODEtMi4zNzUgMi43ODkxLTIuMzc1IDEuNzE4OCAwIDIuNTcwMyAwLjc3MzQ0IDIuNDU3IDIuNTM5MWgtMS43MjI2YzAtMC42MzI4Mi0wLjEwNTQ3LTEuMjczNC0wLjgxNjQxLTEuMjczNC0wLjU3NDIyIDAtMC45MTQwNiAwLjMxMjUtMC45MTQwNiAwLjg5ODQ0IDAgMS42MDE2IDMuNTU4NiAxLjQ2NDggMy41NTg2IDQuMTE3MiAwIDIuMTkxNC0xLjYwNTUgMi40NDUzLTIuOTQ5MiAyLjQ0NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTc2Ny4xIDg1MS4yMSAyLjMzOTgtOC40NDkyaDIuMzI4MWwyLjI5MyA4LjQ0OTJoLTEuODU5NGwtMC40Njg3NS0xLjg3NWgtMi40MTAybC0wLjQ3NjU2IDEuODc1em0zLjQwNjItNi44MjQyaC0wLjAyMzRsLTAuODA4NiAzLjY1MjNoMS42ODc1bC0wLjg1NTQ3LTMuNjUyMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzc0Ljg2IDg1MS4yMXYtOC40NDkyaDIuODQzOGwxLjMyNDIgNS43NDYxaDAuMDE5NWwxLjQwNjItNS43NDYxaDIuNzQ2MXY4LjQ0OTJoLTEuNzE0OHYtNi41MTk1aC0wLjAyMzRsLTEuNjI4OSA2LjUxOTVoLTEuNjgzNmwtMS41NDY5LTYuNTE5NWgtMC4wMjM0djYuNTE5NWgtMS43MTg4IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03ODYuOTUgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDAzOSAxLjQ4NDQgMC42MDE1NiAwIDAuODkwNjItMC4zODY3MiAwLjg5MDYyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTQ3LTEuNjE3Mi0zLjU1NDctNC4xMzI4IDAtMS4zMjAzIDAuNjI4OS0yLjM3NSAyLjc4MTItMi4zNzUgMS43MjI2IDAgMi41NzQyIDAuNzczNDQgMi40NTcgMi41MzkxaC0xLjcxODhjMC0wLjYzMjgyLTAuMTA1NDctMS4yNzM0LTAuODIwMzEtMS4yNzM0LTAuNTcwMzIgMC0wLjkxMDE2IDAuMzEyNS0wLjkxMDE2IDAuODk4NDQgMCAxLjYwMTYgMy41NTg2IDEuNDY0OCAzLjU1ODYgNC4xMTcyIDAgMi4xOTE0LTEuNjA1NSAyLjQ0NTMtMi45NDkyIDIuNDQ1MyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzk2Ljg3IDg0Mi43NnY1Ljk5MjJjMCAxLjI2MTctMC43MTA5NCAyLjU5MzgtMi44NjMzIDIuNTkzOC0xLjk0NTMgMC0yLjg3ODktMS4wMDM5LTIuODc4OS0yLjU5Mzh2LTUuOTkyMmgxLjc2NTZ2NS44NzVjMCAxLjAzOTEgMC40NDUzMSAxLjQ0OTIgMS4wODk4IDEuNDQ5MiAwLjc2OTUzIDAgMS4xMjExLTAuNTE1NjMgMS4xMjExLTEuNDQ5MnYtNS44NzVoMS43NjU2IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03OTguMzMgODUxLjIxdi04LjQ0OTJoMi4zODY3bDIuMjQ2MSA1Ljg1MTZoMC4wMjM0di01Ljg1MTZoMS42NDg0djguNDQ5MmgtMi4zMjQybC0yLjMwODYtNi4xNzk3aC0wLjAyMzR2Ni4xNzk3aC0xLjY0ODQiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgwOS45OCA4NDUuMzVjMC4wMTE3LTAuNzg1MTUtMC4xMTcxOS0xLjQ3MjYtMS4wNTA4LTEuNDcyNi0xLjEwMTYgMC0xLjEwMTYgMS40ODQ0LTEuMTAxNiAzLjEyNSAwIDIuNjQwNiAwLjI1NzgxIDMuMTA5NCAxLjI2NTYgMy4xMDk0IDAuMjg5MDYgMCAwLjYwNTQ3LTAuMDcwMyAwLjg3NS0wLjE2NDA2di0xLjg3MTFoLTAuOTYwOTR2LTEuMjk2OWgyLjczMDV2NC4yODEyYy0wLjQ4MDQ3IDAuMDkzNy0xLjY4NzUgMC4yODEyNS0yLjM4NjcgMC4yODEyNS0yLjk3MjYgMC0zLjMxMjUtMS4yMzA1LTMuMzEyNS00LjQzMzYgMC0yLjEyODkgMC4xMDU0Ny00LjI5NjkgMi45OTYxLTQuMjk2OSAxLjczMDUgMCAyLjgwNDcgMC45NzI2NiAyLjcwMzEgMi43MzgzaC0xLjc1NzgiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgxNS43OSA4NDYuOThjMC0yLjIzNDQgMC00LjM2MzMgMi45MTQxLTQuMzYzMyAxLjgwMDggMCAyLjUyNzMgMC45OTYxIDIuNDU3IDIuODA4NmgtMS43MzA1YzAtMS4xMjUtMC4yMDMxMy0xLjU0My0wLjcyNjU2LTEuNTQzLTAuOTk2MSAwLTEuMTI1IDAuOTMzNTktMS4xMjUgMy4wOTc2IDAgMi4xNjQxIDAuMTI4OSAzLjEwMTYgMS4xMjUgMy4xMDE2IDAuODE2NCAwIDAuNzg1MTUtMS4wNTQ3IDAuODA0NjgtMS43MTg4aDEuNzQ2MWMwIDIuMjU3OC0wLjkwMjM1IDIuOTgwNS0yLjU1MDggMi45ODA1LTIuOTE0MSAwLTIuOTE0MS0yLjE1MjQtMi45MTQxLTQuMzYzMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtODI3LjY5IDg1MC41NGMtMC42Njc5NyAwLjY1NjI1LTEuNDUzMSAwLjgwODU5LTIuMzUxNiAwLjgwODU5LTEuOTQxNCAwLTMuMDE5NS0wLjkxNDA2LTMuMDE5NS0yLjU2MjUgMC0xLjEyNSAwLjc4NTE2LTEuODM5OCAxLjY2MDItMi40MTAyLTAuNDQxNDEtMC41NzQyMi0wLjkzMzYtMS4yNDIyLTAuOTMzNi0yLjExNzIgMC0wLjkzNzUgMS4xMDk0LTEuNjQwNiAyLjU1MDgtMS42NDA2IDAuODA4NTkgMCAyLjE0MDYgMC4zNzUgMi4xNDA2IDEuNjUyNCAwIDEuMDk3Ni0wLjc2MTcyIDEuNjYwMi0xLjQ0MTQgMi4yNjk1bDEuMzI0MiAxLjczMDVjMC4xNTIzNS0wLjU1MDc4IDAuMTg3NS0wLjg2NzE5IDAuMTg3NS0xLjY4MzZoMS40MjU4YzAgMC44NzUgMCAxLjk3NjYtMC41NzAzMSAyLjg4NjdsMS4yNzM0IDEuNzM0NGgtMS43MzA1em0tMi43NS0zLjEyNWMtMC40MjE4OCAwLjMzMjAzLTAuODUxNTcgMC44MDg1OS0wLjg1MTU3IDEuMzcxMSAwIDAuODA0NjkgMC40NzY1NyAxLjI5NjkgMS4yODUyIDEuMjk2OSAwLjUwMzkxIDAgMC45ODQzNy0wLjE2NDA3IDEuMjg1Mi0wLjU2MjV6bTEuMTc5Ny0zLjAxNTZjMC0wLjQ0NTMxLTAuMjY1NjItMC43MjY1Ni0wLjcyMjY1LTAuNzI2NTYtMC4zNzUgMC0wLjczNDM4IDAuMjY5NTMtMC43MzQzOCAwLjY2Nzk3IDAgMC40NzY1NiAwLjMxMjUgMC44NjMyOCAwLjYxNzE5IDEuMjE0OCAwLjQxMDE2LTAuMjU3ODEgMC44Mzk4NC0wLjYzMjgxIDAuODM5ODQtMS4xNTYyIiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im04MzUuMjIgODQyLjc2djEuNDA2MmgtMS45NjQ4djcuMDQzaC0xLjc2NTZ2LTcuMDQzaC0xLjk2NDh2LTEuNDA2Mmg1LjY5NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo=" alt="Samsung C&amp;T" class="chapter-nav-logo-img">
+      <img loading="lazy" decoding="async" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjM4LjM2NXB0IiB3aWR0aD0iNzQuMjA0cHQiIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCA3NC4yMDM2ODMgMzguMzY1MDg4Ij4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iYSI+CjxwYXRoIGQ9Im00MTkuMDkgNzMyLjI1aDYzLjkxdjIxLjE2NGgtNjMuOTF6Ii8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY3OS4wOSAtODM2LjI5KSI+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI2NS4xNiAxMDQuMDQpIiBjbGlwLXBhdGg9InVybCgjYSkiPgo8cGF0aCBzdHlsZT0iZmlsbDojMjM0N2EzIiBkPSJtNDgyLjgxIDczNy4yOGMtMC44NjcxOS00Ljk4MDUtMTUuODM2LTYuNTM1Mi0zMy40MzQtMy40NzI3LTcuMzg2NyAxLjI4NTItMTQuMDU5IDMuMTgzNi0xOS4yNTggNS4zMjAzIDAuNzk2ODggMC4wMTk1IDEuMzkwNiAwLjIwMzEyIDEuNzUzOSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjcxODcgMC40MTc5NyAxLjE1MjN2MC40OTIxOWgtMS43MjI3di0wLjQzNzVjMC0wLjM2MzI4LTAuMjE4NzUtMC41ODU5NC0wLjYwNTQ3LTAuNTg1OTQtMC4zMjQyMiAwLTAuNTIzNDMgMC4xNDQ1My0wLjU4OTg0IDAuNDMzNi0wLjAxNTYgMC4wODItMC4wMTk1IDAuMjE4NzUgMC4wMTE3IDAuMzQzNzUgMC4xODM1OSAwLjc1MzkgMi43NDIyIDEuMjIyNiAzLjAyMzQgMi42MTcyIDAuMDM5MSAwLjE3OTY5IDAuMDgyIDAuNTYyNSAwLjAwOCAxLjEwOTQtMC4xNjQwNiAxLjEyNS0xLjE0NDUgMS41NTg2LTIuNDAyNCAxLjU1ODYtMS43NTM5IDAtMi40Njg4LTAuODI4MTItMi40Njg4LTEuOTc2NnYtMC41MzkwNmgxLjg1MTZsMC4wMDQgMC42NzU3OGMwIDAuMzc1IDAuMjczNDQgMC41ODU5NCAwLjY0ODQ0IDAuNTg1OTQgMC4zNTU0NyAwIDAuNTY2NDEtMC4xNDA2MyAwLjYzNjcyLTAuNDM3NSAwLjAzMTItMC4xMzI4MiAwLjA0NjktMC4zMzIwMy0wLjAxNTYtMC40ODQzOC0wLjMzOTg0LTAuODU5MzctMi43MzA1LTEuMjU3OC0zLjAyNzMtMi42NDQ1LTAuMDY2NC0wLjMxNjQxLTAuMDcwMy0wLjU4MjAzLTAuMDE1Ni0wLjkxNzk3IDAuMDI3My0wLjE3OTY5IDAuMDgyLTAuMzM1OTQgMC4xNTIzNC0wLjQ4MDQ3LTUuNzY1NiAyLjY5NTMtOS4xMzY3IDUuNjYwMi04LjY5MTQgOC4yMjI3IDAuODcxMSA0Ljk4MDUgMTUuODM2IDYuNTM1MiAzMy40MzQgMy40NzY2IDcuNzM0NC0xLjM1MTYgMTQuNjg4LTMuMzY3MiAxOS45OC01LjYyNS0wLjA3ODEgMC4wMDQtMC4xNTIzNSAwLjAxMTctMC4yMzA0NyAwLjAxMTctMS4yMDMxIDAtMi4yODEyLTAuNDUzMTItMi4zOTA2LTEuNjgzNi0wLjAyMzQtMC4yMjI2Ni0wLjAyMzQtMC4zMjAzMi0wLjAyNzMtMC40NDUzMmwwLjAwNC0yLjgzMmMwLTAuMTE3MTggMC4wMTU2LTAuMzMyMDMgMC4wMjc0LTAuNDQxNCAwLjE0NDUzLTEuMTkxNCAxLjA4Mi0xLjY4MzYgMi4zODY3LTEuNjgzNiAxLjAwNzggMCAyLjI0MjIgMC4yODkwNyAyLjM4MjggMS42ODM2IDAuMDE1NiAwLjE3MTg3IDAuMDE1NiAwLjM2MzI4IDAuMDE1NiAwLjQyMTg3djAuMjY5NTNoLTEuNzQ2MXYtMC40MDIzNGMwLTAuMDA4LTAuMDA0LTAuMTU2MjUtMC4wMTk1LTAuMjUtMC4wMjczLTAuMTQwNjMtMC4xNDg0NC0wLjQ3MjY2LTAuNjQ4NDQtMC40NzI2Ni0wLjQ5MjE5IDAtMC42MTcxOSAwLjMzMjAzLTAuNjQ4NDQgMC40NzI2Ni0wLjAxNTYgMC4wNzgxLTAuMDIzNCAwLjE5MTQxLTAuMDIzNCAwLjMxMjV2My4wNzgxYzAgMC4xMDU0NyAwIDAuMTkxNDEgMC4wMTE3IDAuMjUzOTEgMC4wMDggMC4wNDMgMC4wOTc2IDAuNDcyNjYgMC42Njc5NiAwLjQ3MjY2IDAuNTcwMzIgMCAwLjY1NjI1LTAuNDI5NjkgMC42NjAxNi0wLjQ3MjY2IDAuMDE5NS0wLjA4NTkgMC4wMTk1LTAuMTgzNTkgMC4wMTk1LTAuMjUzOTF2LTAuOTUzMTJoLTAuNjg3NXYtMS4wMjM0aDIuNDI1OHYxLjgyMDNjMCAwLjEyNSAwIDAuMjE4NzUtMC4wMjM0IDAuNDQ1MzItMC4wMzEyIDAuMzI0MjItMC4xMzI4MiAwLjU5NzY1LTAuMjg5MDcgMC44MzIwMyA1LjYxMzMtMi42NjQxIDguODc4OS01LjU4NTkgOC40NDE0LTguMTA1NXptLTQ1LjYyOSA4LjgyODEtMC44ODI4MS02aC0wLjAyNzNsLTAuOTA2MjUgNmgtMS44NjMzbDEuMjUtNi43NzczaDMuMDM5MWwxLjI0MjIgNi43Nzczem04Ljk0OTIgMC0wLjAzOTEtNS44ODI4aC0wLjAyNzNsLTEuMDk3NyA1Ljg4MjhoLTEuNzVsLTEuMDg1OS01Ljg4MjhoLTAuMDMxMmwtMC4wMzkxIDUuODgyOGgtMS43MzA1bDAuMTUyMzQtNi43NzczaDIuNzgxMmwwLjgwODYgNS4wMzUyaDAuMDQzbDAuODA4NTktNS4wMzUyaDIuNzg1MmwwLjE0NDUzIDYuNzc3M3ptOC4xNDg0LTEuMzE2NGMtMC4xODc1IDEuMzE2NC0xLjQ3MjcgMS41NDMtMi4zNzg5IDEuNTQzLTEuNTA3OCAwLTIuNDQ1My0wLjY0NDUzLTIuNDQ1My0xLjk1N2wwLjAwNC0wLjUzNTE2aDEuODI4MXYwLjY2Nzk3YzAgMC4zNjMyOCAwLjI1NzgxIDAuNTgyMDMgMC42NTIzNSAwLjU4MjAzIDAuMzUxNTYgMCAwLjU1NDY4LTAuMTQwNjMgMC42MjUtMC40Mjk2OSAwLjAzNTEtMC4xMzI4MSAwLjA1MDgtMC4zMzIwMy0wLjAxMTctMC40ODA0Ny0wLjMzNTk0LTAuODQzNzUtMi43MTA5LTEuMjUzOS0yLjk5NjEtMi42MjExLTAuMDY2NC0wLjMxMjUtMC4wNzAzLTAuNTc0MjItMC4wMTU2LTAuOTA2MjUgMC4xOTkyMi0xLjIzODMgMS4zODY3LTEuNDk2MSAyLjM0MzgtMS40OTYxIDAuODU5MzcgMCAxLjQ4MDUgMC4xODc1IDEuODU1NSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjY0MDYgMC40MTc5NyAxLjEzNjd2MC40OTIxOWgtMS43MDd2LTAuNDMzNmMwLTAuMzY3MTktMC4yMzA0Ni0wLjU4MjAzLTAuNTk3NjUtMC41ODIwMy0wLjMyODEzIDAtMC41MjczNSAwLjE0NDUzLTAuNTg5ODUgMC40MzM1OS0wLjAxMTcgMC4wNTg2LTAuMDI3MyAwLjE5OTIyIDAuMDA4IDAuMzM1OTQgMC4xODc1IDAuNzUzOTEgMi43MjI2IDEuMjE0OCAzIDIuNTkzOCAwLjAzMTIgMC4xNzU3OCAwLjA4NTkgMC41NTQ2OSAwLjAwOCAxLjA5Nzd6bTYuMzI4MS0wLjYwOTM4YzAuMDA4IDAuMTI1LTAuMDA4IDAuMzc1LTAuMDE1NiAwLjQ0NTMyLTAuMTA1NDcgMS4xMTMzLTAuOTAyMzQgMS42Nzk3LTIuMzY3MiAxLjY3OTctMS40Njg4IDAtMi4yNjk1LTAuNTY2NC0yLjM3MTEtMS42Nzk3LTAuMDA0LTAuMDcwMy0wLjAxOTUtMC4zMjAzMi0wLjAxNTYtMC40NDUzMnYtNC44NTE2aDEuNzQ2MXY1LjAwMzljMCAwLjEwOTM3IDAuMDA0IDAuMTk1MzEgMC4wMTU2IDAuMjUgMC4wMjM0IDAuMTEzMjggMC4xMzI4MSAwLjQ3MjY1IDAuNjI1IDAuNDcyNjVzMC42MDU0Ny0wLjM1OTM3IDAuNjI4OTEtMC40NzI2NWMwLjAwOC0wLjA1NDcgMC4wMTE3LTAuMTQ0NTMgMC4wMTE3LTAuMjV2LTUuMDAzOWgxLjc0MjJ6bTcuNTMxMiAxLjg1NTVoLTIuNDI5N2wtMS42MzI4LTUuMzY3MmgtMC4wMjM0bDAuMDg1OSA1LjM2NzJoLTEuNjk1M3YtNi43MDdoMi41MzEybDEuNTE1NiA1LjE1NjJoMC4wMzUxbC0wLjA4OTgtNS4xNTYyaDEuNzAzMXY2LjcwNyIvPgo8L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04MS45MjQgMjMuMzA2KSI+CjxwYXRoIGQ9Im03NjMuNTMgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDA3OCAxLjQ4NDQgMC41OTM3NSAwIDAuODg2NzItMC4zODY3MiAwLjg4NjcyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTg2LTEuNjE3Mi0zLjU1ODYtNC4xMzI4IDAtMS4zMjAzIDAuNjMyODEtMi4zNzUgMi43ODkxLTIuMzc1IDEuNzE4OCAwIDIuNTcwMyAwLjc3MzQ0IDIuNDU3IDIuNTM5MWgtMS43MjI2YzAtMC42MzI4Mi0wLjEwNTQ3LTEuMjczNC0wLjgxNjQxLTEuMjczNC0wLjU3NDIyIDAtMC45MTQwNiAwLjMxMjUtMC45MTQwNiAwLjg5ODQ0IDAgMS42MDE2IDMuNTU4NiAxLjQ2NDggMy41NTg2IDQuMTE3MiAwIDIuMTkxNC0xLjYwNTUgMi40NDUzLTIuOTQ5MiAyLjQ0NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTc2Ny4xIDg1MS4yMSAyLjMzOTgtOC40NDkyaDIuMzI4MWwyLjI5MyA4LjQ0OTJoLTEuODU5NGwtMC40Njg3NS0xLjg3NWgtMi40MTAybC0wLjQ3NjU2IDEuODc1em0zLjQwNjItNi44MjQyaC0wLjAyMzRsLTAuODA4NiAzLjY1MjNoMS42ODc1bC0wLjg1NTQ3LTMuNjUyMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzc0Ljg2IDg1MS4yMXYtOC40NDkyaDIuODQzOGwxLjMyNDIgNS43NDYxaDAuMDE5NWwxLjQwNjItNS43NDYxaDIuNzQ2MXY4LjQ0OTJoLTEuNzE0OHYtNi41MTk1aC0wLjAyMzRsLTEuNjI4OSA2LjUxOTVoLTEuNjgzNmwtMS41NDY5LTYuNTE5NWgtMC4wMjM0djYuNTE5NWgtMS43MTg4IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03ODYuOTUgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDAzOSAxLjQ4NDQgMC42MDE1NiAwIDAuODkwNjItMC4zODY3MiAwLjg5MDYyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTQ3LTEuNjE3Mi0zLjU1NDctNC4xMzI4IDAtMS4zMjAzIDAuNjI4OS0yLjM3NSAyLjc4MTItMi4zNzUgMS43MjI2IDAgMi41NzQyIDAuNzczNDQgMi40NTcgMi41MzkxaC0xLjcxODhjMC0wLjYzMjgyLTAuMTA1NDctMS4yNzM0LTAuODIwMzEtMS4yNzM0LTAuNTcwMzIgMC0wLjkxMDE2IDAuMzEyNS0wLjkxMDE2IDAuODk4NDQgMCAxLjYwMTYgMy41NTg2IDEuNDY0OCAzLjU1ODYgNC4xMTcyIDAgMi4xOTE0LTEuNjA1NSAyLjQ0NTMtMi45NDkyIDIuNDQ1MyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzk2Ljg3IDg0Mi43NnY1Ljk5MjJjMCAxLjI2MTctMC43MTA5NCAyLjU5MzgtMi44NjMzIDIuNTkzOC0xLjk0NTMgMC0yLjg3ODktMS4wMDM5LTIuODc4OS0yLjU5Mzh2LTUuOTkyMmgxLjc2NTZ2NS44NzVjMCAxLjAzOTEgMC40NDUzMSAxLjQ0OTIgMS4wODk4IDEuNDQ5MiAwLjc2OTUzIDAgMS4xMjExLTAuNTE1NjMgMS4xMjExLTEuNDQ5MnYtNS44NzVoMS43NjU2IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03OTguMzMgODUxLjIxdi04LjQ0OTJoMi4zODY3bDIuMjQ2MSA1Ljg1MTZoMC4wMjM0di01Ljg1MTZoMS42NDg0djguNDQ5MmgtMi4zMjQybC0yLjMwODYtNi4xNzk3aC0wLjAyMzR2Ni4xNzk3aC0xLjY0ODQiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgwOS45OCA4NDUuMzVjMC4wMTE3LTAuNzg1MTUtMC4xMTcxOS0xLjQ3MjYtMS4wNTA4LTEuNDcyNi0xLjEwMTYgMC0xLjEwMTYgMS40ODQ0LTEuMTAxNiAzLjEyNSAwIDIuNjQwNiAwLjI1NzgxIDMuMTA5NCAxLjI2NTYgMy4xMDk0IDAuMjg5MDYgMCAwLjYwNTQ3LTAuMDcwMyAwLjg3NS0wLjE2NDA2di0xLjg3MTFoLTAuOTYwOTR2LTEuMjk2OWgyLjczMDV2NC4yODEyYy0wLjQ4MDQ3IDAuMDkzNy0xLjY4NzUgMC4yODEyNS0yLjM4NjcgMC4yODEyNS0yLjk3MjYgMC0zLjMxMjUtMS4yMzA1LTMuMzEyNS00LjQzMzYgMC0yLjEyODkgMC4xMDU0Ny00LjI5NjkgMi45OTYxLTQuMjk2OSAxLjczMDUgMCAyLjgwNDcgMC45NzI2NiAyLjcwMzEgMi43MzgzaC0xLjc1NzgiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgxNS43OSA4NDYuOThjMC0yLjIzNDQgMC00LjM2MzMgMi45MTQxLTQuMzYzMyAxLjgwMDggMCAyLjUyNzMgMC45OTYxIDIuNDU3IDIuODA4NmgtMS43MzA1YzAtMS4xMjUtMC4yMDMxMy0xLjU0My0wLjcyNjU2LTEuNTQzLTAuOTk2MSAwLTEuMTI1IDAuOTMzNTktMS4xMjUgMy4wOTc2IDAgMi4xNjQxIDAuMTI4OSAzLjEwMTYgMS4xMjUgMy4xMDE2IDAuODE2NCAwIDAuNzg1MTUtMS4wNTQ3IDAuODA0NjgtMS43MTg4aDEuNzQ2MWMwIDIuMjU3OC0wLjkwMjM1IDIuOTgwNS0yLjU1MDggMi45ODA1LTIuOTE0MSAwLTIuOTE0MS0yLjE1MjQtMi45MTQxLTQuMzYzMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtODI3LjY5IDg1MC41NGMtMC42Njc5NyAwLjY1NjI1LTEuNDUzMSAwLjgwODU5LTIuMzUxNiAwLjgwODU5LTEuOTQxNCAwLTMuMDE5NS0wLjkxNDA2LTMuMDE5NS0yLjU2MjUgMC0xLjEyNSAwLjc4NTE2LTEuODM5OCAxLjY2MDItMi40MTAyLTAuNDQxNDEtMC41NzQyMi0wLjkzMzYtMS4yNDIyLTAuOTMzNi0yLjExNzIgMC0wLjkzNzUgMS4xMDk0LTEuNjQwNiAyLjU1MDgtMS42NDA2IDAuODA4NTkgMCAyLjE0MDYgMC4zNzUgMi4xNDA2IDEuNjUyNCAwIDEuMDk3Ni0wLjc2MTcyIDEuNjYwMi0xLjQ0MTQgMi4yNjk1bDEuMzI0MiAxLjczMDVjMC4xNTIzNS0wLjU1MDc4IDAuMTg3NS0wLjg2NzE5IDAuMTg3NS0xLjY4MzZoMS40MjU4YzAgMC44NzUgMCAxLjk3NjYtMC41NzAzMSAyLjg4NjdsMS4yNzM0IDEuNzM0NGgtMS43MzA1em0tMi43NS0zLjEyNWMtMC40MjE4OCAwLjMzMjAzLTAuODUxNTcgMC44MDg1OS0wLjg1MTU3IDEuMzcxMSAwIDAuODA0NjkgMC40NzY1NyAxLjI5NjkgMS4yODUyIDEuMjk2OSAwLjUwMzkxIDAgMC45ODQzNy0wLjE2NDA3IDEuMjg1Mi0wLjU2MjV6bTEuMTc5Ny0zLjAxNTZjMC0wLjQ0NTMxLTAuMjY1NjItMC43MjY1Ni0wLjcyMjY1LTAuNzI2NTYtMC4zNzUgMC0wLjczNDM4IDAuMjY5NTMtMC43MzQzOCAwLjY2Nzk3IDAgMC40NzY1NiAwLjMxMjUgMC44NjMyOCAwLjYxNzE5IDEuMjE0OCAwLjQxMDE2LTAuMjU3ODEgMC44Mzk4NC0wLjYzMjgxIDAuODM5ODQtMS4xNTYyIiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im04MzUuMjIgODQyLjc2djEuNDA2MmgtMS45NjQ4djcuMDQzaC0xLjc2NTZ2LTcuMDQzaC0xLjk2NDh2LTEuNDA2Mmg1LjY5NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo=" alt="Samsung C&amp;T" class="chapter-nav-logo-img">
     </a>
     <a href="#hero" class="chapter-nav-link" data-chapter="hero">INTRO</a>
     <a href="#chapter-1" class="chapter-nav-link" data-chapter="chapter-1">CH.01 CARGO</a>
@@ -3108,7 +3333,7 @@ html { scroll-padding-top: 72px; }
 <section class="editorial-section">
   <div class="editorial-split">
     <div class="editorial-image-panel gsap-fade-right">
-      <img src="./tr/WhatsApp Image 2026-04-01 at 10.24.06 PM.jpeg" alt="Cargo Overview" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <img loading="lazy" decoding="async" src="./tr/WhatsApp Image 2026-04-01 at 10.24.06 PM.jpeg" alt="Cargo Overview" style="width:100%;height:100%;object-fit:cover;display:block;">
       <p class="editorial-image-caption">Cargo Overview — 2026.04.01</p>
     </div>
     <div class="editorial-content-panel gsap-fade-left">
@@ -3341,7 +3566,7 @@ html { scroll-padding-top: 72px; }
 <section class="editorial-section">
   <div class="editorial-split reverse">
     <div class="editorial-image-panel gsap-fade-left">
-      <img src="./tr/20260131_101047.jpg" alt="SPMT Movement at Pier" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <img loading="lazy" decoding="async" src="./tr/20260131_101047.jpg" alt="SPMT Movement at Pier" style="width:100%;height:100%;object-fit:cover;display:block;">
       <p class="editorial-image-caption">SPMT Movement at MZP Pier — Load-out Preparation, 2026.01.31</p>
     </div>
     <div class="editorial-content-panel gsap-fade-right">
@@ -4348,7 +4573,7 @@ html { scroll-padding-top: 72px; }
   <div class="editorial-split reverse">
     <!-- 이미지 패널 (오른쪽) -->
     <div class="editorial-image-panel gsap-scale-in">
-      <img src="./tr/20260131_103050.jpg"
+      <img loading="lazy" decoding="async" src="./tr/20260131_103050.jpg"
            alt="RoRo Ramp Tide Check"
            loading="lazy">
       <div class="editorial-image-caption">
@@ -4917,7 +5142,7 @@ html { scroll-padding-top: 72px; }
   <!-- TR1 -->
   <article class="voyage-card" data-voyage="1">
     <div class="voyage-photo">
-      <img src="./tr/20260131_103043.jpg" alt="TR1 RoRo Ramp Load-out" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103043.jpg" alt="TR1 RoRo Ramp Load-out" loading="lazy">
     </div>
     <div class="voyage-narrative">
       <div class="voyage-header">
@@ -4936,7 +5161,7 @@ html { scroll-padding-top: 72px; }
   <!-- TR2 -->
   <article class="voyage-card" data-voyage="2">
     <div class="voyage-photo">
-      <img src="./tr/20260131_094423.jpg" alt="TR2 Load-out" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_094423.jpg" alt="TR2 Load-out" loading="lazy">
     </div>
     <div class="voyage-narrative">
       <div class="voyage-header">
@@ -4965,7 +5190,7 @@ html { scroll-padding-top: 72px; }
   <!-- TR3 -->
   <article class="voyage-card" data-voyage="3">
     <div class="voyage-photo">
-      <img src="./tr/20260131_093538.jpg" alt="TR3 Load-out" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_093538.jpg" alt="TR3 Load-out" loading="lazy">
     </div>
     <div class="voyage-narrative">
       <div class="voyage-header">
@@ -4984,7 +5209,7 @@ html { scroll-padding-top: 72px; }
   <!-- TR4 -->
   <article class="voyage-card" data-voyage="4">
     <div class="voyage-photo">
-      <img src="./tr/20260131_103050.jpg" alt="TR4 Load-out" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103050.jpg" alt="TR4 Load-out" loading="lazy">
     </div>
     <div class="voyage-narrative">
       <div class="voyage-header">
@@ -5003,7 +5228,7 @@ html { scroll-padding-top: 72px; }
   <!-- TR5 -->
   <article class="voyage-card" data-voyage="5">
     <div class="voyage-photo">
-      <img src="./tr/20260314_092749.jpg" alt="TR5 Suspended" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260314_092749.jpg" alt="TR5 Suspended" loading="lazy">
     </div>
     <div class="voyage-narrative">
       <div class="voyage-header">
@@ -5022,7 +5247,7 @@ html { scroll-padding-top: 72px; }
   <!-- TR6 -->
   <article class="voyage-card" data-voyage="6">
     <div class="voyage-photo">
-      <img src="./tr/20260131_105159.jpg" alt="TR6 Suspended" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_105159.jpg" alt="TR6 Suspended" loading="lazy">
     </div>
     <div class="voyage-narrative">
       <div class="voyage-header">
@@ -5041,7 +5266,7 @@ html { scroll-padding-top: 72px; }
   <!-- TR7 -->
   <article class="voyage-card" data-voyage="7">
     <div class="voyage-photo">
-      <img src="./tr/20260314_093314.jpg" alt="TR7 Suspended" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260314_093314.jpg" alt="TR7 Suspended" loading="lazy">
     </div>
     <div class="voyage-narrative">
       <div class="voyage-header">
@@ -5542,217 +5767,217 @@ html { scroll-padding-top: 72px; }
 
     <div class="gallery-item" data-index="0" data-caption="HHI Yard Pre-inspection — Transformer #1 Confirmed">
       <div class="gallery-item-index">01</div>
-      <img src="./tr/20260127_114902.jpg" alt="Yard Pre-inspection" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260127_114902.jpg" alt="Yard Pre-inspection" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">HHI Yard Pre-inspection — Transformer #1 Confirmed</div>
     </div>
 
     <div class="gallery-item" data-index="1" data-caption="Yard Transit Route Site Survey">
       <div class="gallery-item-index">02</div>
-      <img src="./tr/20260127_115107.jpg" alt="Transit Route Survey" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260127_115107.jpg" alt="Transit Route Survey" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Yard Transit Route Site Survey</div>
     </div>
 
     <div class="gallery-item" data-index="2" data-caption="Transformer Exterior Condition Check">
       <div class="gallery-item-index">03</div>
-      <img src="./tr/20260127_115108.jpg" alt="Exterior Condition Check" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260127_115108.jpg" alt="Exterior Condition Check" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Transformer Exterior Condition Check</div>
     </div>
 
     <div class="gallery-item" data-index="3" data-caption="Pier Load-out Position Survey">
       <div class="gallery-item-index">04</div>
-      <img src="./tr/20260127_115325.jpg" alt="Pier Survey" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260127_115325.jpg" alt="Pier Survey" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Pier Load-out Position Survey</div>
     </div>
 
     <div class="gallery-item" data-index="4" data-caption="SPMT Preparation — 01.31">
       <div class="gallery-item-index">05</div>
-      <img src="./tr/20260131_093538.jpg" alt="SPMT Preparation" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_093538.jpg" alt="SPMT Preparation" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">SPMT Preparation — 01.31</div>
     </div>
 
     <div class="gallery-item" data-index="5" data-caption="SPMT Initial Entry Under Transformer">
       <div class="gallery-item-index">06</div>
-      <img src="./tr/20260131_093540.jpg" alt="SPMT Entry Under Transformer" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_093540.jpg" alt="SPMT Entry Under Transformer" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">SPMT Initial Entry Under Transformer</div>
     </div>
 
     <div class="gallery-item" data-index="6" data-caption="Hydraulic Jacking — Immediately Before Ground Clearance">
       <div class="gallery-item-index">07</div>
-      <img src="./tr/20260131_093551.jpg" alt="Hydraulic Jacking" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_093551.jpg" alt="Hydraulic Jacking" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Hydraulic Jacking — Immediately Before Ground Clearance</div>
     </div>
 
     <div class="gallery-item" data-index="7" data-caption="Ground Load Distribution Check">
       <div class="gallery-item-index">08</div>
-      <img src="./tr/20260131_094423.jpg" alt="Load Distribution Check" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_094423.jpg" alt="Load Distribution Check" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Ground Load Distribution Check</div>
     </div>
 
     <div class="gallery-item" data-index="8" data-caption="Movement Towards Pier Begins">
       <div class="gallery-item-index">09</div>
-      <img src="./tr/20260131_101047.jpg" alt="Movement Towards Pier" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_101047.jpg" alt="Movement Towards Pier" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Movement Towards Pier Begins</div>
     </div>
 
     <div class="gallery-item" data-index="9" data-caption="Pier Entry Gate Clearance">
       <div class="gallery-item-index">10</div>
-      <img src="./tr/20260131_101051.jpg" alt="Gate Clearance" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_101051.jpg" alt="Gate Clearance" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Pier Entry Gate Clearance</div>
     </div>
 
     <div class="gallery-item" data-index="10" data-caption="12-Axle SPMT Full Configuration Complete">
       <div class="gallery-item-index">11</div>
-      <img src="./tr/20260131_101142.jpg" alt="Full SPMT Configuration" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_101142.jpg" alt="Full SPMT Configuration" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">12-Axle SPMT Full Configuration Complete</div>
     </div>
 
     <div class="gallery-item" data-index="11" data-caption="Rigging Master On-Site Direction">
       <div class="gallery-item-index">12</div>
-      <img src="./tr/20260131_101143.jpg" alt="Rigging Master Direction" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_101143.jpg" alt="Rigging Master Direction" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Rigging Master On-Site Direction</div>
     </div>
 
     <div class="gallery-item" data-index="12" data-caption="Vessel Deck RoRo Ramp Connection">
       <div class="gallery-item-index">13</div>
-      <img src="./tr/20260131_103043.jpg" alt="RoRo Ramp Connection" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103043.jpg" alt="RoRo Ramp Connection" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Vessel Deck RoRo Ramp Connection</div>
     </div>
 
     <div class="gallery-item" data-index="13" data-caption="SPMT Drives Onto Ramp">
       <div class="gallery-item-index">14</div>
-      <img src="./tr/20260131_103048.jpg" alt="SPMT Drives Onto Ramp" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103048.jpg" alt="SPMT Drives Onto Ramp" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">SPMT Drives Onto Ramp</div>
     </div>
 
     <div class="gallery-item" data-index="14" data-caption="En Route to Deck Stowage Position">
       <div class="gallery-item-index">15</div>
-      <img src="./tr/20260131_103050.jpg" alt="En Route to Deck Position" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103050.jpg" alt="En Route to Deck Position" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">En Route to Deck Stowage Position</div>
     </div>
 
     <div class="gallery-item" data-index="15" data-caption="Final Deck Stowage Position Set">
       <div class="gallery-item-index">16</div>
-      <img src="./tr/20260131_103052.jpg" alt="Final Deck Position Set" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103052.jpg" alt="Final Deck Position Set" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Final Deck Stowage Position Set</div>
     </div>
 
     <div class="gallery-item" data-index="16" data-caption="Sea Fastening Chain Connection Commences">
       <div class="gallery-item-index">17</div>
-      <img src="./tr/20260131_103107.jpg" alt="Sea Fastening Chain Connected" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103107.jpg" alt="Sea Fastening Chain Connected" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Sea Fastening Chain Connection Commences</div>
     </div>
 
     <div class="gallery-item" data-index="17" data-caption="Final Inspection After Sea Fastening Complete">
       <div class="gallery-item-index">18</div>
-      <img src="./tr/20260131_103109.jpg" alt="Post-Sea-Fastening Check" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_103109.jpg" alt="Post-Sea-Fastening Check" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Final Inspection After Sea Fastening Complete</div>
     </div>
 
     <div class="gallery-item" data-index="18" data-caption="Deck Overview Before Departure">
       <div class="gallery-item-index">19</div>
-      <img src="./tr/20260131_105159.jpg" alt="Deck Overview Before Departure" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_105159.jpg" alt="Deck Overview Before Departure" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Deck Overview Before Departure</div>
     </div>
 
     <div class="gallery-item" data-index="19" data-caption="Sea Fastening Condition Check During Passage">
       <div class="gallery-item-index">20</div>
-      <img src="./tr/20260131_105759.jpg" alt="Sea Fastening Check at Sea" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260131_105759.jpg" alt="Sea Fastening Check at Sea" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Sea Fastening Condition Check During Passage</div>
     </div>
 
     <div class="gallery-item" data-index="20" data-caption="Site Inspection Record (2026.02.11)">
       <div class="gallery-item-index">21</div>
-      <img src="./tr/20260211_065010.jpg" alt="Site Inspection Record" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260211_065010.jpg" alt="Site Inspection Record" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Site Inspection Record (2026.02.11)</div>
     </div>
 
     <div class="gallery-item" data-index="21" data-caption="Vessel Overview Record (2026.02.11)">
       <div class="gallery-item-index">22</div>
-      <img src="./tr/20260211_065115.jpg" alt="Vessel Overview Record" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260211_065115.jpg" alt="Vessel Overview Record" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Vessel Overview Record (2026.02.11)</div>
     </div>
 
     <div class="gallery-item" data-index="22" data-caption="AGI Port Overview (2026.03.14)">
       <div class="gallery-item-index">23</div>
-      <img src="./tr/20260314_092749.jpg" alt="AGI Port Overview" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260314_092749.jpg" alt="AGI Port Overview" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">AGI Port Overview (2026.03.14)</div>
     </div>
 
     <div class="gallery-item" data-index="23" data-caption="AGI Unloading SPMT Operation (2026.03.14)">
       <div class="gallery-item-index">24</div>
-      <img src="./tr/20260314_093314.jpg" alt="AGI Unloading SPMT" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/20260314_093314.jpg" alt="AGI Unloading SPMT" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">AGI Unloading SPMT Operation (2026.03.14)</div>
     </div>
 
     <div class="gallery-item" data-index="24" data-caption="TR2 Awaiting Departure — Field Photo Record">
       <div class="gallery-item-index">25</div>
-      <img src="./tr/IMG-20260212-WA0030.jpg" alt="TR2 Field Record" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/IMG-20260212-WA0030.jpg" alt="TR2 Field Record" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">TR2 Awaiting Departure — Field Photo Record</div>
     </div>
 
     <div class="gallery-item" data-index="25" data-caption="TR2 Load-out in Progress">
       <div class="gallery-item-index">26</div>
-      <img src="./tr/IMG-20260212-WA0031.jpg" alt="TR2 Load-out" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/IMG-20260212-WA0031.jpg" alt="TR2 Load-out" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">TR2 Load-out in Progress</div>
     </div>
 
     <div class="gallery-item" data-index="26" data-caption="Field Team Final Check">
       <div class="gallery-item-index">27</div>
-      <img src="./tr/IMG-20260212-WA0032.jpg" alt="Field Team Check" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/IMG-20260212-WA0032.jpg" alt="Field Team Check" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Field Team Final Check</div>
     </div>
 
     <div class="gallery-item" data-index="27" data-caption="Sea Fastening Check After Loading">
       <div class="gallery-item-index">28</div>
-      <img src="./tr/IMG-20260212-WA0033.jpg" alt="Post-Loading Sea Fastening" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/IMG-20260212-WA0033.jpg" alt="Post-Loading Sea Fastening" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">Sea Fastening Check After Loading</div>
     </div>
 
     <div class="gallery-item" data-index="28" data-caption="AGI Field Record — 2026.03.29">
       <div class="gallery-item-index">29</div>
-      <img src="./tr/WhatsApp Image 2026-03-29 at 4.06.18 PM.jpeg" alt="TR5 Field Record" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/WhatsApp Image 2026-03-29 at 4.06.18 PM.jpeg" alt="TR5 Field Record" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">AGI Field Record — 2026.03.29</div>
     </div>
 
     <div class="gallery-item" data-index="29" data-caption="AGI Field Record #2 — 2026.03.29">
       <div class="gallery-item-index">30</div>
-      <img src="./tr/WhatsApp Image 2026-03-29 at 4.06.19 PM.jpeg" alt="TR5 Load-out #2" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/WhatsApp Image 2026-03-29 at 4.06.19 PM.jpeg" alt="TR5 Load-out #2" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">AGI Field Record #2 — 2026.03.29</div>
     </div>
 
     <div class="gallery-item" data-index="30" data-caption="AGI Field Record #3 — 2026.03.29">
       <div class="gallery-item-index">31</div>
-      <img src="./tr/WhatsApp Image 2026-03-29 at 4.06.20 PM.jpeg" alt="TR5 Load-out #3" loading="lazy">
+      <img loading="lazy" decoding="async" src="./tr/WhatsApp Image 2026-03-29 at 4.06.20 PM.jpeg" alt="TR5 Load-out #3" loading="lazy">
       <div class="gallery-item-overlay"></div>
       <div class="gallery-item-caption">AGI Field Record #3 — 2026.03.29</div>
     </div>
@@ -5773,7 +5998,7 @@ html { scroll-padding-top: 72px; }
   <button class="lightbox-btn" id="lb-next" aria-label="Next image">›</button>
   <div class="lightbox-inner">
     <div class="lightbox-img-wrap">
-      <img id="lightbox-img" src="" alt="">
+      <img loading="lazy" decoding="async" id="lightbox-img" src="" alt="">
     </div>
     <div class="lightbox-meta">
       <p class="lightbox-caption" id="lb-caption"></p>
@@ -5866,7 +6091,7 @@ html { scroll-padding-top: 72px; }
 <footer id="site-footer">
   <div class="footer-grid">
     <div>
-      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjM4LjM2NXB0IiB3aWR0aD0iNzQuMjA0cHQiIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCA3NC4yMDM2ODMgMzguMzY1MDg4Ij4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iYSI+CjxwYXRoIGQ9Im00MTkuMDkgNzMyLjI1aDYzLjkxdjIxLjE2NGgtNjMuOTF6Ii8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY3OS4wOSAtODM2LjI5KSI+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI2NS4xNiAxMDQuMDQpIiBjbGlwLXBhdGg9InVybCgjYSkiPgo8cGF0aCBzdHlsZT0iZmlsbDojMjM0N2EzIiBkPSJtNDgyLjgxIDczNy4yOGMtMC44NjcxOS00Ljk4MDUtMTUuODM2LTYuNTM1Mi0zMy40MzQtMy40NzI3LTcuMzg2NyAxLjI4NTItMTQuMDU5IDMuMTgzNi0xOS4yNTggNS4zMjAzIDAuNzk2ODggMC4wMTk1IDEuMzkwNiAwLjIwMzEyIDEuNzUzOSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjcxODcgMC40MTc5NyAxLjE1MjN2MC40OTIxOWgtMS43MjI3di0wLjQzNzVjMC0wLjM2MzI4LTAuMjE4NzUtMC41ODU5NC0wLjYwNTQ3LTAuNTg1OTQtMC4zMjQyMiAwLTAuNTIzNDMgMC4xNDQ1My0wLjU4OTg0IDAuNDMzNi0wLjAxNTYgMC4wODItMC4wMTk1IDAuMjE4NzUgMC4wMTE3IDAuMzQzNzUgMC4xODM1OSAwLjc1MzkgMi43NDIyIDEuMjIyNiAzLjAyMzQgMi42MTcyIDAuMDM5MSAwLjE3OTY5IDAuMDgyIDAuNTYyNSAwLjAwOCAxLjEwOTQtMC4xNjQwNiAxLjEyNS0xLjE0NDUgMS41NTg2LTIuNDAyNCAxLjU1ODYtMS43NTM5IDAtMi40Njg4LTAuODI4MTItMi40Njg4LTEuOTc2NnYtMC41MzkwNmgxLjg1MTZsMC4wMDQgMC42NzU3OGMwIDAuMzc1IDAuMjczNDQgMC41ODU5NCAwLjY0ODQ0IDAuNTg1OTQgMC4zNTU0NyAwIDAuNTY2NDEtMC4xNDA2MyAwLjYzNjcyLTAuNDM3NSAwLjAzMTItMC4xMzI4MiAwLjA0NjktMC4zMzIwMy0wLjAxNTYtMC40ODQzOC0wLjMzOTg0LTAuODU5MzctMi43MzA1LTEuMjU3OC0zLjAyNzMtMi42NDQ1LTAuMDY2NC0wLjMxNjQxLTAuMDcwMy0wLjU4MjAzLTAuMDE1Ni0wLjkxNzk3IDAuMDI3My0wLjE3OTY5IDAuMDgyLTAuMzM1OTQgMC4xNTIzNC0wLjQ4MDQ3LTUuNzY1NiAyLjY5NTMtOS4xMzY3IDUuNjYwMi04LjY5MTQgOC4yMjI3IDAuODcxMSA0Ljk4MDUgMTUuODM2IDYuNTM1MiAzMy40MzQgMy40NzY2IDcuNzM0NC0xLjM1MTYgMTQuNjg4LTMuMzY3MiAxOS45OC01LjYyNS0wLjA3ODEgMC4wMDQtMC4xNTIzNSAwLjAxMTctMC4yMzA0NyAwLjAxMTctMS4yMDMxIDAtMi4yODEyLTAuNDUzMTItMi4zOTA2LTEuNjgzNi0wLjAyMzQtMC4yMjI2Ni0wLjAyMzQtMC4zMjAzMi0wLjAyNzMtMC40NDUzMmwwLjAwNC0yLjgzMmMwLTAuMTE3MTggMC4wMTU2LTAuMzMyMDMgMC4wMjc0LTAuNDQxNCAwLjE0NDUzLTEuMTkxNCAxLjA4Mi0xLjY4MzYgMi4zODY3LTEuNjgzNiAxLjAwNzggMCAyLjI0MjIgMC4yODkwNyAyLjM4MjggMS42ODM2IDAuMDE1NiAwLjE3MTg3IDAuMDE1NiAwLjM2MzI4IDAuMDE1NiAwLjQyMTg3djAuMjY5NTNoLTEuNzQ2MXYtMC40MDIzNGMwLTAuMDA4LTAuMDA0LTAuMTU2MjUtMC4wMTk1LTAuMjUtMC4wMjczLTAuMTQwNjMtMC4xNDg0NC0wLjQ3MjY2LTAuNjQ4NDQtMC40NzI2Ni0wLjQ5MjE5IDAtMC42MTcxOSAwLjMzMjAzLTAuNjQ4NDQgMC40NzI2Ni0wLjAxNTYgMC4wNzgxLTAuMDIzNCAwLjE5MTQxLTAuMDIzNCAwLjMxMjV2My4wNzgxYzAgMC4xMDU0NyAwIDAuMTkxNDEgMC4wMTE3IDAuMjUzOTEgMC4wMDggMC4wNDMgMC4wOTc2IDAuNDcyNjYgMC42Njc5NiAwLjQ3MjY2IDAuNTcwMzIgMCAwLjY1NjI1LTAuNDI5NjkgMC42NjAxNi0wLjQ3MjY2IDAuMDE5NS0wLjA4NTkgMC4wMTk1LTAuMTgzNTkgMC4wMTk1LTAuMjUzOTF2LTAuOTUzMTJoLTAuNjg3NXYtMS4wMjM0aDIuNDI1OHYxLjgyMDNjMCAwLjEyNSAwIDAuMjE4NzUtMC4wMjM0IDAuNDQ1MzItMC4wMzEyIDAuMzI0MjItMC4xMzI4MiAwLjU5NzY1LTAuMjg5MDcgMC44MzIwMyA1LjYxMzMtMi42NjQxIDguODc4OS01LjU4NTkgOC40NDE0LTguMTA1NXptLTQ1LjYyOSA4LjgyODEtMC44ODI4MS02aC0wLjAyNzNsLTAuOTA2MjUgNmgtMS44NjMzbDEuMjUtNi43NzczaDMuMDM5MWwxLjI0MjIgNi43Nzczem04Ljk0OTIgMC0wLjAzOTEtNS44ODI4aC0wLjAyNzNsLTEuMDk3NyA1Ljg4MjhoLTEuNzVsLTEuMDg1OS01Ljg4MjhoLTAuMDMxMmwtMC4wMzkxIDUuODgyOGgtMS43MzA1bDAuMTUyMzQtNi43NzczaDIuNzgxMmwwLjgwODYgNS4wMzUyaDAuMDQzbDAuODA4NTktNS4wMzUyaDIuNzg1MmwwLjE0NDUzIDYuNzc3M3ptOC4xNDg0LTEuMzE2NGMtMC4xODc1IDEuMzE2NC0xLjQ3MjcgMS41NDMtMi4zNzg5IDEuNTQzLTEuNTA3OCAwLTIuNDQ1My0wLjY0NDUzLTIuNDQ1My0xLjk1N2wwLjAwNC0wLjUzNTE2aDEuODI4MXYwLjY2Nzk3YzAgMC4zNjMyOCAwLjI1NzgxIDAuNTgyMDMgMC42NTIzNSAwLjU4MjAzIDAuMzUxNTYgMCAwLjU1NDY4LTAuMTQwNjMgMC42MjUtMC40Mjk2OSAwLjAzNTEtMC4xMzI4MSAwLjA1MDgtMC4zMzIwMy0wLjAxMTctMC40ODA0Ny0wLjMzNTk0LTAuODQzNzUtMi43MTA5LTEuMjUzOS0yLjk5NjEtMi42MjExLTAuMDY2NC0wLjMxMjUtMC4wNzAzLTAuNTc0MjItMC4wMTU2LTAuOTA2MjUgMC4xOTkyMi0xLjIzODMgMS4zODY3LTEuNDk2MSAyLjM0MzgtMS40OTYxIDAuODU5MzcgMCAxLjQ4MDUgMC4xODc1IDEuODU1NSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjY0MDYgMC40MTc5NyAxLjEzNjd2MC40OTIxOWgtMS43MDd2LTAuNDMzNmMwLTAuMzY3MTktMC4yMzA0Ni0wLjU4MjAzLTAuNTk3NjUtMC41ODIwMy0wLjMyODEzIDAtMC41MjczNSAwLjE0NDUzLTAuNTg5ODUgMC40MzM1OS0wLjAxMTcgMC4wNTg2LTAuMDI3MyAwLjE5OTIyIDAuMDA4IDAuMzM1OTQgMC4xODc1IDAuNzUzOTEgMi43MjI2IDEuMjE0OCAzIDIuNTkzOCAwLjAzMTIgMC4xNzU3OCAwLjA4NTkgMC41NTQ2OSAwLjAwOCAxLjA5Nzd6bTYuMzI4MS0wLjYwOTM4YzAuMDA4IDAuMTI1LTAuMDA4IDAuMzc1LTAuMDE1NiAwLjQ0NTMyLTAuMTA1NDcgMS4xMTMzLTAuOTAyMzQgMS42Nzk3LTIuMzY3MiAxLjY3OTctMS40Njg4IDAtMi4yNjk1LTAuNTY2NC0yLjM3MTEtMS42Nzk3LTAuMDA0LTAuMDcwMy0wLjAxOTUtMC4zMjAzMi0wLjAxNTYtMC40NDUzMnYtNC44NTE2aDEuNzQ2MXY1LjAwMzljMCAwLjEwOTM3IDAuMDA0IDAuMTk1MzEgMC4wMTU2IDAuMjUgMC4wMjM0IDAuMTEzMjggMC4xMzI4MSAwLjQ3MjY1IDAuNjI1IDAuNDcyNjVzMC42MDU0Ny0wLjM1OTM3IDAuNjI4OTEtMC40NzI2NWMwLjAwOC0wLjA1NDcgMC4wMTE3LTAuMTQ0NTMgMC4wMTE3LTAuMjV2LTUuMDAzOWgxLjc0MjJ6bTcuNTMxMiAxLjg1NTVoLTIuNDI5N2wtMS42MzI4LTUuMzY3MmgtMC4wMjM0bDAuMDg1OSA1LjM2NzJoLTEuNjk1M3YtNi43MDdoMi41MzEybDEuNTE1NiA1LjE1NjJoMC4wMzUxbC0wLjA4OTgtNS4xNTYyaDEuNzAzMXY2LjcwNyIvPgo8L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04MS45MjQgMjMuMzA2KSI+CjxwYXRoIGQ9Im03NjMuNTMgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDA3OCAxLjQ4NDQgMC41OTM3NSAwIDAuODg2NzItMC4zODY3MiAwLjg4NjcyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTg2LTEuNjE3Mi0zLjU1ODYtNC4xMzI4IDAtMS4zMjAzIDAuNjMyODEtMi4zNzUgMi43ODkxLTIuMzc1IDEuNzE4OCAwIDIuNTcwMyAwLjc3MzQ0IDIuNDU3IDIuNTM5MWgtMS43MjI2YzAtMC42MzI4Mi0wLjEwNTQ3LTEuMjczNC0wLjgxNjQxLTEuMjczNC0wLjU3NDIyIDAtMC45MTQwNiAwLjMxMjUtMC45MTQwNiAwLjg5ODQ0IDAgMS42MDE2IDMuNTU4NiAxLjQ2NDggMy41NTg2IDQuMTE3MiAwIDIuMTkxNC0xLjYwNTUgMi40NDUzLTIuOTQ5MiAyLjQ0NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTc2Ny4xIDg1MS4yMSAyLjMzOTgtOC40NDkyaDIuMzI4MWwyLjI5MyA4LjQ0OTJoLTEuODU5NGwtMC40Njg3NS0xLjg3NWgtMi40MTAybC0wLjQ3NjU2IDEuODc1em0zLjQwNjItNi44MjQyaC0wLjAyMzRsLTAuODA4NiAzLjY1MjNoMS42ODc1bC0wLjg1NTQ3LTMuNjUyMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzc0Ljg2IDg1MS4yMXYtOC40NDkyaDIuODQzOGwxLjMyNDIgNS43NDYxaDAuMDE5NWwxLjQwNjItNS43NDYxaDIuNzQ2MXY4LjQ0OTJoLTEuNzE0OHYtNi41MTk1aC0wLjAyMzRsLTEuNjI4OSA2LjUxOTVoLTEuNjgzNmwtMS41NDY5LTYuNTE5NWgtMC4wMjM0djYuNTE5NWgtMS43MTg4IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03ODYuOTUgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDAzOSAxLjQ4NDQgMC42MDE1NiAwIDAuODkwNjItMC4zODY3MiAwLjg5MDYyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTQ3LTEuNjE3Mi0zLjU1NDctNC4xMzI4IDAtMS4zMjAzIDAuNjI4OS0yLjM3NSAyLjc4MTItMi4zNzUgMS43MjI2IDAgMi41NzQyIDAuNzczNDQgMi40NTcgMi41MzkxaC0xLjcxODhjMC0wLjYzMjgyLTAuMTA1NDctMS4yNzM0LTAuODIwMzEtMS4yNzM0LTAuNTcwMzIgMC0wLjkxMDE2IDAuMzEyNS0wLjkxMDE2IDAuODk4NDQgMCAxLjYwMTYgMy41NTg2IDEuNDY0OCAzLjU1ODYgNC4xMTcyIDAgMi4xOTE0LTEuNjA1NSAyLjQ0NTMtMi45NDkyIDIuNDQ1MyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzk2Ljg3IDg0Mi43NnY1Ljk5MjJjMCAxLjI2MTctMC43MTA5NCAyLjU5MzgtMi44NjMzIDIuNTkzOC0xLjk0NTMgMC0yLjg3ODktMS4wMDM5LTIuODc4OS0yLjU5Mzh2LTUuOTkyMmgxLjc2NTZ2NS44NzVjMCAxLjAzOTEgMC40NDUzMSAxLjQ0OTIgMS4wODk4IDEuNDQ5MiAwLjc2OTUzIDAgMS4xMjExLTAuNTE1NjMgMS4xMjExLTEuNDQ5MnYtNS44NzVoMS43NjU2IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03OTguMzMgODUxLjIxdi04LjQ0OTJoMi4zODY3bDIuMjQ2MSA1Ljg1MTZoMC4wMjM0di01Ljg1MTZoMS42NDg0djguNDQ5MmgtMi4zMjQybC0yLjMwODYtNi4xNzk3aC0wLjAyMzR2Ni4xNzk3aC0xLjY0ODQiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgwOS45OCA4NDUuMzVjMC4wMTE3LTAuNzg1MTUtMC4xMTcxOS0xLjQ3MjYtMS4wNTA4LTEuNDcyNi0xLjEwMTYgMC0xLjEwMTYgMS40ODQ0LTEuMTAxNiAzLjEyNSAwIDIuNjQwNiAwLjI1NzgxIDMuMTA5NCAxLjI2NTYgMy4xMDk0IDAuMjg5MDYgMCAwLjYwNTQ3LTAuMDcwMyAwLjg3NS0wLjE2NDA2di0xLjg3MTFoLTAuOTYwOTR2LTEuMjk2OWgyLjczMDV2NC4yODEyYy0wLjQ4MDQ3IDAuMDkzNy0xLjY4NzUgMC4yODEyNS0yLjM4NjcgMC4yODEyNS0yLjk3MjYgMC0zLjMxMjUtMS4yMzA1LTMuMzEyNS00LjQzMzYgMC0yLjEyODkgMC4xMDU0Ny00LjI5NjkgMi45OTYxLTQuMjk2OSAxLjczMDUgMCAyLjgwNDcgMC45NzI2NiAyLjcwMzEgMi43MzgzaC0xLjc1NzgiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgxNS43OSA4NDYuOThjMC0yLjIzNDQgMC00LjM2MzMgMi45MTQxLTQuMzYzMyAxLjgwMDggMCAyLjUyNzMgMC45OTYxIDIuNDU3IDIuODA4NmgtMS43MzA1YzAtMS4xMjUtMC4yMDMxMy0xLjU0My0wLjcyNjU2LTEuNTQzLTAuOTk2MSAwLTEuMTI1IDAuOTMzNTktMS4xMjUgMy4wOTc2IDAgMi4xNjQxIDAuMTI4OSAzLjEwMTYgMS4xMjUgMy4xMDE2IDAuODE2NCAwIDAuNzg1MTUtMS4wNTQ3IDAuODA0NjgtMS43MTg4aDEuNzQ2MWMwIDIuMjU3OC0wLjkwMjM1IDIuOTgwNS0yLjU1MDggMi45ODA1LTIuOTE0MSAwLTIuOTE0MS0yLjE1MjQtMi45MTQxLTQuMzYzMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtODI3LjY5IDg1MC41NGMtMC42Njc5NyAwLjY1NjI1LTEuNDUzMSAwLjgwODU5LTIuMzUxNiAwLjgwODU5LTEuOTQxNCAwLTMuMDE5NS0wLjkxNDA2LTMuMDE5NS0yLjU2MjUgMC0xLjEyNSAwLjc4NTE2LTEuODM5OCAxLjY2MDItMi40MTAyLTAuNDQxNDEtMC41NzQyMi0wLjkzMzYtMS4yNDIyLTAuOTMzNi0yLjExNzIgMC0wLjkzNzUgMS4xMDk0LTEuNjQwNiAyLjU1MDgtMS42NDA2IDAuODA4NTkgMCAyLjE0MDYgMC4zNzUgMi4xNDA2IDEuNjUyNCAwIDEuMDk3Ni0wLjc2MTcyIDEuNjYwMi0xLjQ0MTQgMi4yNjk1bDEuMzI0MiAxLjczMDVjMC4xNTIzNS0wLjU1MDc4IDAuMTg3NS0wLjg2NzE5IDAuMTg3NS0xLjY4MzZoMS40MjU4YzAgMC44NzUgMCAxLjk3NjYtMC41NzAzMSAyLjg4NjdsMS4yNzM0IDEuNzM0NGgtMS43MzA1em0tMi43NS0zLjEyNWMtMC40MjE4OCAwLjMzMjAzLTAuODUxNTcgMC44MDg1OS0wLjg1MTU3IDEuMzcxMSAwIDAuODA0NjkgMC40NzY1NyAxLjI5NjkgMS4yODUyIDEuMjk2OSAwLjUwMzkxIDAgMC45ODQzNy0wLjE2NDA3IDEuMjg1Mi0wLjU2MjV6bTEuMTc5Ny0zLjAxNTZjMC0wLjQ0NTMxLTAuMjY1NjItMC43MjY1Ni0wLjcyMjY1LTAuNzI2NTYtMC4zNzUgMC0wLjczNDM4IDAuMjY5NTMtMC43MzQzOCAwLjY2Nzk3IDAgMC40NzY1NiAwLjMxMjUgMC44NjMyOCAwLjYxNzE5IDEuMjE0OCAwLjQxMDE2LTAuMjU3ODEgMC44Mzk4NC0wLjYzMjgxIDAuODM5ODQtMS4xNTYyIiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im04MzUuMjIgODQyLjc2djEuNDA2MmgtMS45NjQ4djcuMDQzaC0xLjc2NTZ2LTcuMDQzaC0xLjk2NDh2LTEuNDA2Mmg1LjY5NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo=" alt="Samsung C&amp;T" class="footer-cnt-logo">
+      <img loading="lazy" decoding="async" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjM4LjM2NXB0IiB3aWR0aD0iNzQuMjA0cHQiIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCA3NC4yMDM2ODMgMzguMzY1MDg4Ij4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iYSI+CjxwYXRoIGQ9Im00MTkuMDkgNzMyLjI1aDYzLjkxdjIxLjE2NGgtNjMuOTF6Ii8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY3OS4wOSAtODM2LjI5KSI+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI2NS4xNiAxMDQuMDQpIiBjbGlwLXBhdGg9InVybCgjYSkiPgo8cGF0aCBzdHlsZT0iZmlsbDojMjM0N2EzIiBkPSJtNDgyLjgxIDczNy4yOGMtMC44NjcxOS00Ljk4MDUtMTUuODM2LTYuNTM1Mi0zMy40MzQtMy40NzI3LTcuMzg2NyAxLjI4NTItMTQuMDU5IDMuMTgzNi0xOS4yNTggNS4zMjAzIDAuNzk2ODggMC4wMTk1IDEuMzkwNiAwLjIwMzEyIDEuNzUzOSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjcxODcgMC40MTc5NyAxLjE1MjN2MC40OTIxOWgtMS43MjI3di0wLjQzNzVjMC0wLjM2MzI4LTAuMjE4NzUtMC41ODU5NC0wLjYwNTQ3LTAuNTg1OTQtMC4zMjQyMiAwLTAuNTIzNDMgMC4xNDQ1My0wLjU4OTg0IDAuNDMzNi0wLjAxNTYgMC4wODItMC4wMTk1IDAuMjE4NzUgMC4wMTE3IDAuMzQzNzUgMC4xODM1OSAwLjc1MzkgMi43NDIyIDEuMjIyNiAzLjAyMzQgMi42MTcyIDAuMDM5MSAwLjE3OTY5IDAuMDgyIDAuNTYyNSAwLjAwOCAxLjEwOTQtMC4xNjQwNiAxLjEyNS0xLjE0NDUgMS41NTg2LTIuNDAyNCAxLjU1ODYtMS43NTM5IDAtMi40Njg4LTAuODI4MTItMi40Njg4LTEuOTc2NnYtMC41MzkwNmgxLjg1MTZsMC4wMDQgMC42NzU3OGMwIDAuMzc1IDAuMjczNDQgMC41ODU5NCAwLjY0ODQ0IDAuNTg1OTQgMC4zNTU0NyAwIDAuNTY2NDEtMC4xNDA2MyAwLjYzNjcyLTAuNDM3NSAwLjAzMTItMC4xMzI4MiAwLjA0NjktMC4zMzIwMy0wLjAxNTYtMC40ODQzOC0wLjMzOTg0LTAuODU5MzctMi43MzA1LTEuMjU3OC0zLjAyNzMtMi42NDQ1LTAuMDY2NC0wLjMxNjQxLTAuMDcwMy0wLjU4MjAzLTAuMDE1Ni0wLjkxNzk3IDAuMDI3My0wLjE3OTY5IDAuMDgyLTAuMzM1OTQgMC4xNTIzNC0wLjQ4MDQ3LTUuNzY1NiAyLjY5NTMtOS4xMzY3IDUuNjYwMi04LjY5MTQgOC4yMjI3IDAuODcxMSA0Ljk4MDUgMTUuODM2IDYuNTM1MiAzMy40MzQgMy40NzY2IDcuNzM0NC0xLjM1MTYgMTQuNjg4LTMuMzY3MiAxOS45OC01LjYyNS0wLjA3ODEgMC4wMDQtMC4xNTIzNSAwLjAxMTctMC4yMzA0NyAwLjAxMTctMS4yMDMxIDAtMi4yODEyLTAuNDUzMTItMi4zOTA2LTEuNjgzNi0wLjAyMzQtMC4yMjI2Ni0wLjAyMzQtMC4zMjAzMi0wLjAyNzMtMC40NDUzMmwwLjAwNC0yLjgzMmMwLTAuMTE3MTggMC4wMTU2LTAuMzMyMDMgMC4wMjc0LTAuNDQxNCAwLjE0NDUzLTEuMTkxNCAxLjA4Mi0xLjY4MzYgMi4zODY3LTEuNjgzNiAxLjAwNzggMCAyLjI0MjIgMC4yODkwNyAyLjM4MjggMS42ODM2IDAuMDE1NiAwLjE3MTg3IDAuMDE1NiAwLjM2MzI4IDAuMDE1NiAwLjQyMTg3djAuMjY5NTNoLTEuNzQ2MXYtMC40MDIzNGMwLTAuMDA4LTAuMDA0LTAuMTU2MjUtMC4wMTk1LTAuMjUtMC4wMjczLTAuMTQwNjMtMC4xNDg0NC0wLjQ3MjY2LTAuNjQ4NDQtMC40NzI2Ni0wLjQ5MjE5IDAtMC42MTcxOSAwLjMzMjAzLTAuNjQ4NDQgMC40NzI2Ni0wLjAxNTYgMC4wNzgxLTAuMDIzNCAwLjE5MTQxLTAuMDIzNCAwLjMxMjV2My4wNzgxYzAgMC4xMDU0NyAwIDAuMTkxNDEgMC4wMTE3IDAuMjUzOTEgMC4wMDggMC4wNDMgMC4wOTc2IDAuNDcyNjYgMC42Njc5NiAwLjQ3MjY2IDAuNTcwMzIgMCAwLjY1NjI1LTAuNDI5NjkgMC42NjAxNi0wLjQ3MjY2IDAuMDE5NS0wLjA4NTkgMC4wMTk1LTAuMTgzNTkgMC4wMTk1LTAuMjUzOTF2LTAuOTUzMTJoLTAuNjg3NXYtMS4wMjM0aDIuNDI1OHYxLjgyMDNjMCAwLjEyNSAwIDAuMjE4NzUtMC4wMjM0IDAuNDQ1MzItMC4wMzEyIDAuMzI0MjItMC4xMzI4MiAwLjU5NzY1LTAuMjg5MDcgMC44MzIwMyA1LjYxMzMtMi42NjQxIDguODc4OS01LjU4NTkgOC40NDE0LTguMTA1NXptLTQ1LjYyOSA4LjgyODEtMC44ODI4MS02aC0wLjAyNzNsLTAuOTA2MjUgNmgtMS44NjMzbDEuMjUtNi43NzczaDMuMDM5MWwxLjI0MjIgNi43Nzczem04Ljk0OTIgMC0wLjAzOTEtNS44ODI4aC0wLjAyNzNsLTEuMDk3NyA1Ljg4MjhoLTEuNzVsLTEuMDg1OS01Ljg4MjhoLTAuMDMxMmwtMC4wMzkxIDUuODgyOGgtMS43MzA1bDAuMTUyMzQtNi43NzczaDIuNzgxMmwwLjgwODYgNS4wMzUyaDAuMDQzbDAuODA4NTktNS4wMzUyaDIuNzg1MmwwLjE0NDUzIDYuNzc3M3ptOC4xNDg0LTEuMzE2NGMtMC4xODc1IDEuMzE2NC0xLjQ3MjcgMS41NDMtMi4zNzg5IDEuNTQzLTEuNTA3OCAwLTIuNDQ1My0wLjY0NDUzLTIuNDQ1My0xLjk1N2wwLjAwNC0wLjUzNTE2aDEuODI4MXYwLjY2Nzk3YzAgMC4zNjMyOCAwLjI1NzgxIDAuNTgyMDMgMC42NTIzNSAwLjU4MjAzIDAuMzUxNTYgMCAwLjU1NDY4LTAuMTQwNjMgMC42MjUtMC40Mjk2OSAwLjAzNTEtMC4xMzI4MSAwLjA1MDgtMC4zMzIwMy0wLjAxMTctMC40ODA0Ny0wLjMzNTk0LTAuODQzNzUtMi43MTA5LTEuMjUzOS0yLjk5NjEtMi42MjExLTAuMDY2NC0wLjMxMjUtMC4wNzAzLTAuNTc0MjItMC4wMTU2LTAuOTA2MjUgMC4xOTkyMi0xLjIzODMgMS4zODY3LTEuNDk2MSAyLjM0MzgtMS40OTYxIDAuODU5MzcgMCAxLjQ4MDUgMC4xODc1IDEuODU1NSAwLjU1ODU5IDAuMjc3MzQgMC4yODEyNSAwLjQxNzk3IDAuNjY0MDYgMC40MTc5NyAxLjEzNjd2MC40OTIxOWgtMS43MDd2LTAuNDMzNmMwLTAuMzY3MTktMC4yMzA0Ni0wLjU4MjAzLTAuNTk3NjUtMC41ODIwMy0wLjMyODEzIDAtMC41MjczNSAwLjE0NDUzLTAuNTg5ODUgMC40MzM1OS0wLjAxMTcgMC4wNTg2LTAuMDI3MyAwLjE5OTIyIDAuMDA4IDAuMzM1OTQgMC4xODc1IDAuNzUzOTEgMi43MjI2IDEuMjE0OCAzIDIuNTkzOCAwLjAzMTIgMC4xNzU3OCAwLjA4NTkgMC41NTQ2OSAwLjAwOCAxLjA5Nzd6bTYuMzI4MS0wLjYwOTM4YzAuMDA4IDAuMTI1LTAuMDA4IDAuMzc1LTAuMDE1NiAwLjQ0NTMyLTAuMTA1NDcgMS4xMTMzLTAuOTAyMzQgMS42Nzk3LTIuMzY3MiAxLjY3OTctMS40Njg4IDAtMi4yNjk1LTAuNTY2NC0yLjM3MTEtMS42Nzk3LTAuMDA0LTAuMDcwMy0wLjAxOTUtMC4zMjAzMi0wLjAxNTYtMC40NDUzMnYtNC44NTE2aDEuNzQ2MXY1LjAwMzljMCAwLjEwOTM3IDAuMDA0IDAuMTk1MzEgMC4wMTU2IDAuMjUgMC4wMjM0IDAuMTEzMjggMC4xMzI4MSAwLjQ3MjY1IDAuNjI1IDAuNDcyNjVzMC42MDU0Ny0wLjM1OTM3IDAuNjI4OTEtMC40NzI2NWMwLjAwOC0wLjA1NDcgMC4wMTE3LTAuMTQ0NTMgMC4wMTE3LTAuMjV2LTUuMDAzOWgxLjc0MjJ6bTcuNTMxMiAxLjg1NTVoLTIuNDI5N2wtMS42MzI4LTUuMzY3MmgtMC4wMjM0bDAuMDg1OSA1LjM2NzJoLTEuNjk1M3YtNi43MDdoMi41MzEybDEuNTE1NiA1LjE1NjJoMC4wMzUxbC0wLjA4OTgtNS4xNTYyaDEuNzAzMXY2LjcwNyIvPgo8L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC04MS45MjQgMjMuMzA2KSI+CjxwYXRoIGQ9Im03NjMuNTMgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDA3OCAxLjQ4NDQgMC41OTM3NSAwIDAuODg2NzItMC4zODY3MiAwLjg4NjcyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTg2LTEuNjE3Mi0zLjU1ODYtNC4xMzI4IDAtMS4zMjAzIDAuNjMyODEtMi4zNzUgMi43ODkxLTIuMzc1IDEuNzE4OCAwIDIuNTcwMyAwLjc3MzQ0IDIuNDU3IDIuNTM5MWgtMS43MjI2YzAtMC42MzI4Mi0wLjEwNTQ3LTEuMjczNC0wLjgxNjQxLTEuMjczNC0wLjU3NDIyIDAtMC45MTQwNiAwLjMxMjUtMC45MTQwNiAwLjg5ODQ0IDAgMS42MDE2IDMuNTU4NiAxLjQ2NDggMy41NTg2IDQuMTE3MiAwIDIuMTkxNC0xLjYwNTUgMi40NDUzLTIuOTQ5MiAyLjQ0NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTc2Ny4xIDg1MS4yMSAyLjMzOTgtOC40NDkyaDIuMzI4MWwyLjI5MyA4LjQ0OTJoLTEuODU5NGwtMC40Njg3NS0xLjg3NWgtMi40MTAybC0wLjQ3NjU2IDEuODc1em0zLjQwNjItNi44MjQyaC0wLjAyMzRsLTAuODA4NiAzLjY1MjNoMS42ODc1bC0wLjg1NTQ3LTMuNjUyMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzc0Ljg2IDg1MS4yMXYtOC40NDkyaDIuODQzOGwxLjMyNDIgNS43NDYxaDAuMDE5NWwxLjQwNjItNS43NDYxaDIuNzQ2MXY4LjQ0OTJoLTEuNzE0OHYtNi41MTk1aC0wLjAyMzRsLTEuNjI4OSA2LjUxOTVoLTEuNjgzNmwtMS41NDY5LTYuNTE5NWgtMC4wMjM0djYuNTE5NWgtMS43MTg4IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03ODYuOTUgODUxLjM0Yy0yLjE5MTQgMC0yLjU5NzYtMS4yODUyLTIuNTAzOS0yLjc0NjFoMS43NjU2YzAgMC44MDQ2OSAwLjAzNTIgMS40ODQ0IDEuMDAzOSAxLjQ4NDQgMC42MDE1NiAwIDAuODkwNjItMC4zODY3MiAwLjg5MDYyLTAuOTU3MDMgMC0xLjUyMzQtMy41NTQ3LTEuNjE3Mi0zLjU1NDctNC4xMzI4IDAtMS4zMjAzIDAuNjI4OS0yLjM3NSAyLjc4MTItMi4zNzUgMS43MjI2IDAgMi41NzQyIDAuNzczNDQgMi40NTcgMi41MzkxaC0xLjcxODhjMC0wLjYzMjgyLTAuMTA1NDctMS4yNzM0LTAuODIwMzEtMS4yNzM0LTAuNTcwMzIgMC0wLjkxMDE2IDAuMzEyNS0wLjkxMDE2IDAuODk4NDQgMCAxLjYwMTYgMy41NTg2IDEuNDY0OCAzLjU1ODYgNC4xMTcyIDAgMi4xOTE0LTEuNjA1NSAyLjQ0NTMtMi45NDkyIDIuNDQ1MyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtNzk2Ljg3IDg0Mi43NnY1Ljk5MjJjMCAxLjI2MTctMC43MTA5NCAyLjU5MzgtMi44NjMzIDIuNTkzOC0xLjk0NTMgMC0yLjg3ODktMS4wMDM5LTIuODc4OS0yLjU5Mzh2LTUuOTkyMmgxLjc2NTZ2NS44NzVjMCAxLjAzOTEgMC40NDUzMSAxLjQ0OTIgMS4wODk4IDEuNDQ5MiAwLjc2OTUzIDAgMS4xMjExLTAuNTE1NjMgMS4xMjExLTEuNDQ5MnYtNS44NzVoMS43NjU2IiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im03OTguMzMgODUxLjIxdi04LjQ0OTJoMi4zODY3bDIuMjQ2MSA1Ljg1MTZoMC4wMjM0di01Ljg1MTZoMS42NDg0djguNDQ5MmgtMi4zMjQybC0yLjMwODYtNi4xNzk3aC0wLjAyMzR2Ni4xNzk3aC0xLjY0ODQiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgwOS45OCA4NDUuMzVjMC4wMTE3LTAuNzg1MTUtMC4xMTcxOS0xLjQ3MjYtMS4wNTA4LTEuNDcyNi0xLjEwMTYgMC0xLjEwMTYgMS40ODQ0LTEuMTAxNiAzLjEyNSAwIDIuNjQwNiAwLjI1NzgxIDMuMTA5NCAxLjI2NTYgMy4xMDk0IDAuMjg5MDYgMCAwLjYwNTQ3LTAuMDcwMyAwLjg3NS0wLjE2NDA2di0xLjg3MTFoLTAuOTYwOTR2LTEuMjk2OWgyLjczMDV2NC4yODEyYy0wLjQ4MDQ3IDAuMDkzNy0xLjY4NzUgMC4yODEyNS0yLjM4NjcgMC4yODEyNS0yLjk3MjYgMC0zLjMxMjUtMS4yMzA1LTMuMzEyNS00LjQzMzYgMC0yLjEyODkgMC4xMDU0Ny00LjI5NjkgMi45OTYxLTQuMjk2OSAxLjczMDUgMCAyLjgwNDcgMC45NzI2NiAyLjcwMzEgMi43MzgzaC0xLjc1NzgiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPHBhdGggZD0ibTgxNS43OSA4NDYuOThjMC0yLjIzNDQgMC00LjM2MzMgMi45MTQxLTQuMzYzMyAxLjgwMDggMCAyLjUyNzMgMC45OTYxIDIuNDU3IDIuODA4NmgtMS43MzA1YzAtMS4xMjUtMC4yMDMxMy0xLjU0My0wLjcyNjU2LTEuNTQzLTAuOTk2MSAwLTEuMTI1IDAuOTMzNTktMS4xMjUgMy4wOTc2IDAgMi4xNjQxIDAuMTI4OSAzLjEwMTYgMS4xMjUgMy4xMDE2IDAuODE2NCAwIDAuNzg1MTUtMS4wNTQ3IDAuODA0NjgtMS43MTg4aDEuNzQ2MWMwIDIuMjU3OC0wLjkwMjM1IDIuOTgwNS0yLjU1MDggMi45ODA1LTIuOTE0MSAwLTIuOTE0MS0yLjE1MjQtMi45MTQxLTQuMzYzMyIgc3R5bGU9ImZpbGw6IzIzNDdhMyIvPgo8cGF0aCBkPSJtODI3LjY5IDg1MC41NGMtMC42Njc5NyAwLjY1NjI1LTEuNDUzMSAwLjgwODU5LTIuMzUxNiAwLjgwODU5LTEuOTQxNCAwLTMuMDE5NS0wLjkxNDA2LTMuMDE5NS0yLjU2MjUgMC0xLjEyNSAwLjc4NTE2LTEuODM5OCAxLjY2MDItMi40MTAyLTAuNDQxNDEtMC41NzQyMi0wLjkzMzYtMS4yNDIyLTAuOTMzNi0yLjExNzIgMC0wLjkzNzUgMS4xMDk0LTEuNjQwNiAyLjU1MDgtMS42NDA2IDAuODA4NTkgMCAyLjE0MDYgMC4zNzUgMi4xNDA2IDEuNjUyNCAwIDEuMDk3Ni0wLjc2MTcyIDEuNjYwMi0xLjQ0MTQgMi4yNjk1bDEuMzI0MiAxLjczMDVjMC4xNTIzNS0wLjU1MDc4IDAuMTg3NS0wLjg2NzE5IDAuMTg3NS0xLjY4MzZoMS40MjU4YzAgMC44NzUgMCAxLjk3NjYtMC41NzAzMSAyLjg4NjdsMS4yNzM0IDEuNzM0NGgtMS43MzA1em0tMi43NS0zLjEyNWMtMC40MjE4OCAwLjMzMjAzLTAuODUxNTcgMC44MDg1OS0wLjg1MTU3IDEuMzcxMSAwIDAuODA0NjkgMC40NzY1NyAxLjI5NjkgMS4yODUyIDEuMjk2OSAwLjUwMzkxIDAgMC45ODQzNy0wLjE2NDA3IDEuMjg1Mi0wLjU2MjV6bTEuMTc5Ny0zLjAxNTZjMC0wLjQ0NTMxLTAuMjY1NjItMC43MjY1Ni0wLjcyMjY1LTAuNzI2NTYtMC4zNzUgMC0wLjczNDM4IDAuMjY5NTMtMC43MzQzOCAwLjY2Nzk3IDAgMC40NzY1NiAwLjMxMjUgMC44NjMyOCAwLjYxNzE5IDEuMjE0OCAwLjQxMDE2LTAuMjU3ODEgMC44Mzk4NC0wLjYzMjgxIDAuODM5ODQtMS4xNTYyIiBzdHlsZT0iZmlsbDojMjM0N2EzIi8+CjxwYXRoIGQ9Im04MzUuMjIgODQyLjc2djEuNDA2MmgtMS45NjQ4djcuMDQzaC0xLjc2NTZ2LTcuMDQzaC0xLjk2NDh2LTEuNDA2Mmg1LjY5NTMiIHN0eWxlPSJmaWxsOiMyMzQ3YTMiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo=" alt="Samsung C&amp;T" class="footer-cnt-logo">
       <div class="footer-brand">HVDC TR Operations Report</div>
       <p class="footer-desc">
         Independent Subsea HVDC System Project (Project Lightning) in the U.A.E. — TR Transport Report. AGI-only internal circulation copy. This web text is a condensed operational summary aligned to the AGI-only integrated operations guide (v3.7, 2026-04-02).
