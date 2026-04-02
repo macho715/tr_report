@@ -3218,34 +3218,27 @@ img {
 }
 
 
-/* ── 13. 가로 스크롤 방지 (body level) ── */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
+/* ── 13. 가로 스크롤 방지 — body/html 건드리지 않고 섹션별 clip ── */
+/* body { overflow-x: hidden } 은 sticky nav 및 Lenis 스크롤 깨뜨림 → 사용 금지 */
 
-/* ── 14. Editorial section 모바일 overflow 방지 ── */
+/* ── 14. Editorial section 모바일 overflow clip ── */
 @media (max-width: 900px) {
   .editorial-section {
     padding-left: 16px !important;
     padding-right: 16px !important;
-    overflow-x: hidden;
+    overflow-x: clip;      /* clip: BFC 생성 없이 시각적 클리핑만 */
   }
-  .editorial-split {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
+  .editorial-split,
   .editorial-image-panel,
   .editorial-content-panel {
     max-width: 100%;
-    overflow-x: hidden;
   }
   .data-points {
     max-width: 100%;
   }
 }
 
-/* ── 15. 섹션 전반 max-width 100% 보장 ── */
+/* ── 15. 섹션 전반 overflow-x clip ── */
 @media (max-width: 768px) {
   .key-fact-section,
   .gate-flow-section,
@@ -3255,7 +3248,7 @@ html, body {
   .pull-quote-section,
   .chapter-stats-section {
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 </style>
