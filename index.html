@@ -136,9 +136,7 @@ function t(t,i,e){return Math.max(t,Math.min(i,e))}var i=class{isRunning=!1;valu
   ═══════════════════════════════════════════════════════════════ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html {
-    overflow-x: clip;
-  }
+  /* html에 overflow 설정 금지 — Safari에서 뷰포트 스크롤 컨테이너 동작 깨짐 */
 
   body {
     background: var(--bg-void);
@@ -7004,23 +7002,26 @@ gsap.registerPlugin(ScrollTrigger);
     });
   }
 
-  // ITEM 9 — Lenis smooth scroll
-  try {
-    var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-    var lenis = new Lenis({
-      duration: 1.15,
-      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-      smoothTouch: false,
-      syncTouch: false,
-      syncTouchLerp: 0.1,
-    });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+  // ITEM 9 — Lenis smooth scroll (데스크톱 전용)
+  // 모바일 터치 기기에서는 Lenis 완전 미사용 — native scroll + ScrollTrigger 직접 사용
+  var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (!isTouchDevice) {
+    try {
+      var lenis = new Lenis({
+        duration: 1.15,
+        easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothTouch: false,
+      });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } catch (e) {
+      console.warn('Lenis init failed (CDN may be unavailable):', e);
+    }
+  } else {
+    // 모바일: native scroll — ScrollTrigger는 자체 scroll listener로 동작
     gsap.ticker.lagSmoothing(0);
-    // 터치 기기에서는 native scroll 사용 — Lenis 가상 위치와 충돌 방지
-    if (isTouchDevice) { lenis.stop(); }
-  } catch (e) {
-    console.warn('Lenis init failed (CDN may be unavailable):', e);
+    window.addEventListener('scroll', function() { ScrollTrigger.update(); }, { passive: true });
   }
 
 })();
