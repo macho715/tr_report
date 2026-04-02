@@ -137,8 +137,7 @@ function t(t,i,e){return Math.max(t,Math.min(i,e))}var i=class{isRunning=!1;valu
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
@@ -147,7 +146,7 @@ function t(t,i,e){return Math.max(t,Math.min(i,e))}var i=class{isRunning=!1;valu
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: var(--lh-body);
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* ── Latin typography rules ── */
@@ -3218,7 +3217,10 @@ img {
 }
 
 
-/* ── 13. 가로 스크롤 방지 — body/html 건드리지 않고 섹션별 clip ── */
+/* ── 13. chapter-opener clip (JS overflow 동적 적용 제거 → CSS로 이관) ── */
+.chapter-opener { overflow: hidden; }
+
+/* ── 가로 스크롤 방지 — body/html 건드리지 않고 섹션별 clip ── */
 /* body { overflow-x: hidden } 은 sticky nav 및 Lenis 스크롤 깨뜨림 → 사용 금지 */
 
 /* ── 14. Editorial section 모바일 overflow clip ── */
@@ -6990,7 +6992,6 @@ gsap.registerPlugin(ScrollTrigger);
   // ITEM 6 — SVG Mask clip-path scroll reveal on chapter openers
   if (!reducedMotion) {
     document.querySelectorAll('.chapter-opener').forEach(function(el) {
-      el.style.overflow = 'hidden';
       gsap.fromTo(el,
         { clipPath: 'inset(0 100% 0 0)' },
         {
@@ -7005,14 +7006,19 @@ gsap.registerPlugin(ScrollTrigger);
 
   // ITEM 9 — Lenis smooth scroll
   try {
+    var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
     var lenis = new Lenis({
       duration: 1.15,
       easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
       smoothTouch: false,
+      syncTouch: false,
+      syncTouchLerp: 0.1,
     });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
+    // 터치 기기에서는 native scroll 사용 — Lenis 가상 위치와 충돌 방지
+    if (isTouchDevice) { lenis.stop(); }
   } catch (e) {
     console.warn('Lenis init failed (CDN may be unavailable):', e);
   }
